@@ -17,9 +17,11 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ModalProvider>
-      <ModalHandler />
+    <Provider store={store}>
+      <ModalProvider>
+        <ModalHandler />
         <RouterProvider router={router} />
-    </ModalProvider>
+      </ModalProvider>
+    </Provider>
   </StrictMode>,
 )
