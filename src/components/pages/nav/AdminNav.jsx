@@ -1,0 +1,72 @@
+import * as React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+const AdminNav = ({ isAdminPage }) => {
+    const [showProfileMenu, setShowProfileMenu] = React.useState(false);
+
+    const userTest = {
+        firstName: "John",
+        lastName: "Doe",
+        username: "johndoe",
+        img: "https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+    };
+
+    const handleProfileMenu = () => {
+        // console.log("Profile clicked");
+        setShowProfileMenu(!showProfileMenu);
+    };
+
+    const handleLogout = () => {
+        console.log("Logout clicked");
+    };
+
+    return (
+        <div className="flex justify-between items-center w-full h-[5dvh] bg-[#1E1E1E] text-gray-200 px-30">
+            { isAdminPage ?
+                <a href="/dashboard" className="text-gray-200 hover:text-white">
+                    <FontAwesomeIcon icon="fa-solid fa-house" />
+                    <span className="ml-2 text-lg font-semibold">Accueil</span>
+                </a>
+            :
+                <a href="/admin/dashboard" className="text-gray-200 hover:text-white">
+                    <FontAwesomeIcon icon="fa-solid fa-house" />
+                    <span className="ml-2 text-lg font-semibold">Administrateur</span>
+                </a>
+            }
+            <div className="flex items-center gap-2 h-full cursor-pointer hover:bg-gray-700 px-4 transition duration-200 ease-in-out relative" onClick={ handleProfileMenu }>
+                <span>Bonjour, {userTest.firstName + ' ' + userTest.lastName.toUpperCase()}</span>
+                <div
+                    className="w-[30px] h-[30px] rounded-full bg-cover bg-center"
+                    style={{ backgroundImage: `url(${userTest.img})` }}
+                ></div>
+                        
+                {showProfileMenu && (
+                    <div className="absolute top-[5dvh] right-0 p-2 w-full bg-[#1E1E1E] shadow-md z-50 flex flex-row justify-evenly overflow-hidden cursor-default" onMouseLeave={ () => setShowProfileMenu(false) }>
+                        <a
+                            href='#'
+                            className="w-[50px] h-[50px] rounded-full bg-cover bg-center"
+                            style={{ backgroundImage: `url(${userTest.img})` }}
+                            onMouseEnter={() => document.querySelector('.modify-profile-menu').classList.add('text-blue-300')}
+                            onMouseLeave={() => document.querySelector('.modify-profile-menu').classList.remove('text-blue-300')}
+                        ></a>
+                        <div className='flex flex-col justify-start items-start ml-4 text-sm'>
+                            <a href="#" className='modify-profile-menu flex flex-col justify-start items-start transition-all duration-200 ease-in-out hover:text-blue-300'>
+                                <span>{userTest.firstName + ' ' + userTest.lastName}</span>
+                                <span className='italic text-xs mb-2'>{userTest.username}</span>
+                                <span>Modifier le profil</span>
+                            </a>
+                            <button
+                                onClick={ handleLogout }
+                                className="cursor-pointer transition-all duration-200 ease-in-out hover:text-red-400"
+                            >
+                                Se déconnecter
+                            </button>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
+
+export default AdminNav;
