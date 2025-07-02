@@ -1,6 +1,6 @@
 const Dashboard = () => {
     return (
-        <div className="dashboard flex justify-center items-center flex-col w-full">
+        <div className="dashboard flex justify-start items-center flex-col w-full min-h-[100dvh] bg-white text-black">
             <h1>Dashboard</h1>
             <p>Welcome to the dashboard!</p>
 
