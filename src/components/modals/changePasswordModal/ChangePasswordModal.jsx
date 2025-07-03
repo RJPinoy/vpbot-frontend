@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { sanitizeInput, isValidEmail } from "../../../utils";
 import { useModal } from "../ModalProvider";
 
-const ChangePassword = ({ handleCancel }) => {
+const ChangePasswordModal = ({ handleCancel }) => {
     const [email, setEmail] = React.useState("");
     const [errorMessage, setErrorMessage] = React.useState("");
 
@@ -50,4 +50,4 @@ const ChangePassword = ({ handleCancel }) => {
     );
 }
 
-export default ChangePassword;
+export default ChangePasswordModal;
