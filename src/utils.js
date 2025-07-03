@@ -7,4 +7,10 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 
-export { sanitizeInput, isValidEmail };
+function parseDate(dateString) {
+  const [day, month, yearAndTime] = dateString.split("/");
+  const [year, time] = yearAndTime.split(" ");
+  return new Date(`${year}-${month}-${day}T${time}:00`);
+};
+
+export { sanitizeInput, isValidEmail, parseDate };
