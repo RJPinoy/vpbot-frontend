@@ -3,6 +3,7 @@ import FormModal from './formModal/FormModal';
 import ConfirmModal from './confirmModal/ConfirmModal';
 import ForgetPasswordModal from './forgetPasswordModal/ForgetPasswordModal';
 import ImageModal from './imageModal/ImageModal';
+import ChangePassword from './changePasseword/ChangePassword';
 
 const ModalHandler = () => {
     const { modalState, hideModal } = useModal();
@@ -15,6 +16,8 @@ const ModalHandler = () => {
                 return <ForgetPasswordModal handleCancel={hideModal} {...modalState.props} />;
             case 'image':
                 return <ImageModal handleCancel={hideModal} {...modalState.props} />;
+            case 'changePassword':
+                return <ChangePassword handleCancel={hideModal} {...modalState.props} />;
             default:
                 return <ConfirmModal handleCancel={hideModal} {...modalState.props} />;
         }

@@ -72,6 +72,11 @@ const AdminAccount = () => {
         console.log("User updated:", updatedUser);
     }
 
+    const handleChangePassword = (e) => {
+        e.preventDefault();
+        showModal("changePassword");
+    }
+
     return (
         <>
             <h1 className="text-4xl font-bold w-full mb-8">Mon Compte :</h1>
@@ -103,7 +108,7 @@ const AdminAccount = () => {
                         <img className="rounded border-2 border-gray-700 aspect-square w-[15dvh] object-cover" src={ img } alt="Photo de profil" />
                     </div>
                 </div>
-                <label className="mb-4" htmlFor="password">Mot de passe : <button className="italic text-sm underline cursor-pointer text-[#37749F] hover:text-[#1E3E55] transition-all duration-200">Changer son mot de passe</button></label>
+                <label className="mb-4" htmlFor="password">Mot de passe : <button onClick={ handleChangePassword } className="italic text-sm underline cursor-pointer text-[#37749F] hover:text-[#1E3E55] transition-all duration-200">Changer son mot de passe</button></label>
                 <div className="flex justify-start items-center flex-row gap-4">
                     <button type="submit" onClick={ handleSubmit } className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">Enregistrer</button>
                 </div>
