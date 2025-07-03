@@ -24,7 +24,7 @@ const AdminDashboard = () => {
 
     return (
         <div className="flex justify-start items-center flex-row w-full h-[95dvh] overflow-hidden">
-            <nav className="dashboard flex justify-start items-center flex-col w-1/4 h-[95dvh] bg-[#1E1E1E] text-gray-200 py-4">
+            <nav className="dashboard flex justify-start items-center flex-col w-1/5 h-[95dvh] bg-[#1E1E1E] text-gray-200 py-4">
                 <ul className="flex justify-start items-start flex-col w-full h-full">
                     {tabs.map((tab) => (
                         <li
