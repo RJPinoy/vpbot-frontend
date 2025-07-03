@@ -1,5 +1,5 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faXmark, faEye, faEyeSlash, faUser, faCog, faHouse } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faEye, faEyeSlash, faUser, faCog, faHouse, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
     // Eye icons for password visibility toggle
@@ -13,4 +13,6 @@ library.add(
 
     // Settings icon for configuration or settings pages
     faCog,
+
+    faMagnifyingGlass,
 );
