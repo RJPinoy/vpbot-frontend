@@ -2,16 +2,9 @@ import * as React from "react";
 import { useModal } from "../../../modals/ModalProvider";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../../../stores/slices/adminSlice";
+import { userTest } from '../../../../fixtures/fixtures'
 
 const AdminAccount = () => {
-    const userTest = {
-        firstName: "John",
-        lastName: "Doe",
-        username: "johndoe",
-        email: "john.doe@test.com",
-        img: "https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-    };
-
     const user = useSelector((state) => state.admin.user);
     const [firstName, setFirstName] = React.useState(userTest.firstName);
     const [lastName, setLastName] = React.useState(userTest.lastName);
@@ -105,7 +98,7 @@ const AdminAccount = () => {
                     </div>
                     <div className="flex flex-col w-1/2">
                         <label htmlFor="img">Image de profil : <button onClick={ handleImageChange } className="italic text-sm underline cursor-pointer text-[#37749F] hover:text-[#1E3E55] transition-all duration-200">Modifier l'image de profil</button></label>
-                        <img className="rounded border-2 border-gray-700 aspect-square w-[15dvh] object-cover" src={ img } alt="Photo de profil" />
+                        {img && (<img className="rounded border-2 border-gray-700 aspect-square w-[15dvh] object-cover" src={ img } alt="Photo de profil" />)}
                     </div>
                 </div>
                 <label className="mb-4" htmlFor="password">Mot de passe : <button onClick={ handleChangePassword } className="italic text-sm underline cursor-pointer text-[#37749F] hover:text-[#1E3E55] transition-all duration-200">Changer son mot de passe</button></label>

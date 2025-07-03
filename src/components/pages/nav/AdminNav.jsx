@@ -1,15 +1,9 @@
 import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { userTest } from '../../../fixtures/fixtures'
 
 const AdminNav = ({ isAdminPage }) => {
     const [showProfileMenu, setShowProfileMenu] = React.useState(false);
-
-    const userTest = {
-        firstName: "John",
-        lastName: "Doe",
-        username: "johndoe",
-        img: "https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-    };
 
     const handleProfileMenu = () => {
         // console.log("Profile clicked");
@@ -43,14 +37,14 @@ const AdminNav = ({ isAdminPage }) => {
                 {showProfileMenu && (
                     <div className="absolute top-[5dvh] right-0 p-2 w-full bg-[#1E1E1E] shadow-md z-50 flex flex-row justify-evenly overflow-hidden cursor-default" onMouseLeave={ () => setShowProfileMenu(false) }>
                         <a
-                            href='#'
+                            href='/admin/dashboard?tab=compte'
                             className="w-[50px] h-[50px] rounded-full bg-cover bg-center"
                             style={{ backgroundImage: `url(${userTest.img})` }}
                             onMouseEnter={() => document.querySelector('.modify-profile-menu').classList.add('text-blue-300')}
                             onMouseLeave={() => document.querySelector('.modify-profile-menu').classList.remove('text-blue-300')}
                         ></a>
                         <div className='flex flex-col justify-start items-start ml-4 text-sm'>
-                            <a href="#" className='modify-profile-menu flex flex-col justify-start items-start transition-all duration-200 ease-in-out hover:text-blue-300'>
+                            <a href="/admin/dashboard?tab=compte" className='modify-profile-menu flex flex-col justify-start items-start transition-all duration-200 ease-in-out hover:text-blue-300'>
                                 <span>{userTest.firstName + ' ' + userTest.lastName}</span>
                                 <span className='italic text-xs mb-2'>{userTest.username}</span>
                                 <span>Modifier le profil</span>
