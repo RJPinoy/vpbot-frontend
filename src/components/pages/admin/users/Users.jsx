@@ -129,7 +129,7 @@ const Users = () => {
 
                 <div className='relative'>
                     <label htmlFor="search" className='mr-2'>Recherche :</label>
-                    <input type="text" name="search" className='border rounded pl-2 pr-6 py-1' value={ inputSearch } onChange={ handleInputChange } />
+                    <input type="text" id='search' name="search" className='border rounded pl-2 pr-6 py-1' value={ inputSearch } onChange={ handleInputChange } />
                     <div className={`absolute top-1/2 -translate-y-1/2 right-2 ${inputSearch ? 'cursor-pointer' : ''}`} onClick={ handleResetInputSearch }>
                         <FontAwesomeIcon icon={inputSearch ? "fa-solid fa-xmark" : "fa-solid fa-magnifying-glass"} />
                     </div>
@@ -148,6 +148,7 @@ const Users = () => {
                                     <th className='p-2'>
                                         <input 
                                             type="checkbox"
+                                            name='checkbox-select-all'
                                             checked={allSelected}
                                             onChange={handleSelectAll}
                                             aria-label="Select all users"
@@ -167,6 +168,7 @@ const Users = () => {
                                         <tr key={user.id} className='group odd:bg-gray-200 even:bg-white'>
                                             <td className='p-2 text-center'>
                                                 <input type="checkbox"
+                                                    name='checkbox-select'
                                                     checked={checkedUsers.has(user.id)}
                                                     onChange={() => handleCheckboxChange(user.id)}
                                                 />

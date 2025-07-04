@@ -48,7 +48,7 @@ const Login = () => {
                     <form className="flex flex-col justify-evenly h-full gap-4" action="/login" method="POST" onSubmit={ handleLogin }>
                         <div className="flex flex-col w-full">
                             <label htmlFor="username" className="mb-2">Identifiant ou email:</label>
-                            <input type="text" id="username" name="username" className="border border-black p-2" required />
+                            <input type="text" id="username" name="username" className="border border-black p-2" autoComplete='on' required />
                         </div>
                         <div className="flex flex-col w-full relative">
                             <label htmlFor="password" className="mb-2">Mot de passe:</label>
@@ -73,8 +73,8 @@ const Login = () => {
                             </div>
                         )}
                         <div>
-                            <label className="inline-flex items-center">
-                                <input type="checkbox" name="remember" />
+                            <label htmlFor='remember' className="inline-flex items-center">
+                                <input type="checkbox" id='remember' name="remember" />
                                 <span className="ml-2">Se souvenir de moi</span>
                             </label>
                         </div>
