@@ -1,10 +1,24 @@
+import * as React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ConfirmModal = ({ handleCancel, userId, message }) => {
-    console.log(userId);
+const ConfirmModal = ({ handleCancel, userId, message, action}) => {
+    const [selectedRole, setSelectedRole] = React.useState("USER");
 
     const handleConfirm = () => {
-        console.log("Should confirm :", userId)
+        switch (action) {
+            case "resetPassword":
+                console.log("Confirming reset password... : ", userId);
+                return
+            case "changeRole":
+                console.log("Confirming change role... : ", userId);
+                console.log("Selected role:", selectedRole);
+                return
+            case "deleteAccount":
+                console.log("Confirming deletion... : ", userId);
+                return
+            default:
+                return
+        }
     }
 
     return (
@@ -14,7 +28,24 @@ const ConfirmModal = ({ handleCancel, userId, message }) => {
                     <FontAwesomeIcon icon={"fa-solid fa-xmark"} />
                 </button>
 
-                <h3 className="text-xl mb-8 w-2/3 mx-auto">{message}</h3>
+                {message}
+
+                {action === "changeRole" && (
+                    <div className="my-4">
+                        <label htmlFor="role-select" className="mr-2 font-medium">Rôle :</label>
+                        <select
+                            id="role-select"
+                            value={selectedRole}
+                            onChange={(e) => setSelectedRole(e.target.value)}
+                            className="p-2 border rounded"
+                        >
+                            <option value="USER">Utilisateur</option>
+                            <option value="ADMIN">Administrateur</option>
+                        </select>
+                    </div>
+                )}
+
+                <p className="text-xl mt-2 mb-8">Êtes-vous sûr de vouloir continuer ?</p>
 
                 <div className="confirmModal-container flex flex-row items-center justify-center">
                     <button className="bg-red-500 cursor-pointer p-2 text-white rounded-[5px] mx-4 transition-all duration-300 ease-in-out hover:bg-red-600" onClick={ handleCancel }>Annuler</button>

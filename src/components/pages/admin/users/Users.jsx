@@ -50,11 +50,78 @@ const Users = () => {
         }
     };
 
-    const handleChangePassword = (id) => {
+    const handleResetPassword = (id) => {
+        const arrayId = Array.isArray(id) ?
+            id : id instanceof Set ?
+                Array.from(id) : [id];
+
         showModal("confirm", {
-            userId: id,
-            message: `Vous êtes sur le point de réinitialiser le mot de passe de ${id}. Êtes-vous sûr de vouloir continuer ? Cette action est irréversible.`
+            userId: arrayId,
+            action: "resetPassword",
+            message: (
+                <div>
+                    <p className='text-xl'>Vous êtes sur le point de réinitialiser le mot de passe de :</p>
+                    <p className='max-h-[30dvh] overflow-y-auto my-2'>
+                        {arrayId.map((id, index) => (
+                            <span key={id}>
+                                <strong className="text-blue-700">{id}</strong>
+                                {index < arrayId.length - 1 && <br />}
+                            </span>
+                        ))}
+                    </p>
+                    <p><strong className="text-xl text-red-500">Cette action est irréversible.</strong></p>
+                </div>
+            )
         });
+    };
+
+    const handleChangeRole = (id) => {
+        const arrayId = Array.isArray(id) ?
+            id : id instanceof Set ?
+                Array.from(id) : [id];
+
+        showModal("confirm", {
+            userId: arrayId,
+            action: "changeRole",
+            message: (
+                <div>
+                    <p className='text-xl'>Vous êtes sur le point de modifier le rôle de :</p>
+                    <p className='max-h-[30dvh] overflow-y-auto my-2'>
+                        {arrayId.map((id, index) => (
+                            <span key={id}>
+                                <strong className="text-blue-700">{id}</strong>
+                                {index < arrayId.length - 1 && <br />}
+                            </span>
+                        ))}
+                    </p>
+                </div>
+            ),
+        })
+    }
+
+    const handleDeleteAccount = (id) => {
+        const arrayId = Array.isArray(id) ?
+            id : id instanceof Set ?
+                Array.from(id) : [id];
+
+        showModal("confirm", {
+            userId: arrayId,
+            action: "deleteAccount",
+            message: (
+                <div>
+                    <p className='text-xl'>Vous êtes sur le point de supprimer le compte de :</p>
+                    <p className='max-h-[30dvh] overflow-y-auto my-2'>
+                        {arrayId.map((id, index) => (
+                            <span key={id}>
+                                <strong className="text-blue-700">{id}</strong>
+                                {index < arrayId.length - 1 && <br />}
+                            </span>
+                        ))}
+                    </p>
+                    <p><strong className="text-xl text-red-500">Cette action est irréversible.</strong></p>
+                </div>
+            ),
+        })
     }
 
     const isInactive = (dateString) => {
@@ -185,10 +252,10 @@ const Users = () => {
                                                         )}
                                                         <span className='w-full'>{user.lastName.toUpperCase()} {user.firstName}</span>
                                                     </div>
-                                                    <div className='flex flex-wrap justify-center gap-x-2 opacity-0 transition duration-200 ease-in-out group-hover:opacity-100'>
-                                                        <button onClick={ () => handleChangePassword(user.id) } className="italic text-sm text-blue-600 cursor-pointer hover:underline">Réinitialiser mot de passe</button>|
-                                                        <button className="italic text-sm text-blue-600 cursor-pointer hover:underline">Modifier le rôle</button>|
-                                                        <button className="italic text-sm text-red-600 cursor-pointer hover:underline">Supprimer le compte</button>
+                                                    <div className='flex flex-col justify-center gap-x-2 opacity-0 transition duration-200 ease-in-out group-hover:opacity-100'>
+                                                        <button onClick={ () => handleResetPassword(user.id) } className="italic text-sm text-blue-600 cursor-pointer hover:underline">Réinitialiser mot de passe</button>
+                                                        <button onClick={ () => handleChangeRole(user.id) } className="italic text-sm text-blue-600 cursor-pointer hover:underline">Modifier le rôle</button>
+                                                        <button onClick={ () => handleDeleteAccount(user.id) } className="italic text-sm text-red-600 cursor-pointer hover:underline">Supprimer le compte</button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -207,9 +274,9 @@ const Users = () => {
                         <span className='text-sm font-thin italic'>{checkedUsers.size} sélectionné{checkedUsers.size > 1 ? 's' : ''}</span>
                         { checkedUsers.size > 0 && (
                             <>
-                                <button className="cursor-pointer bg-blue-500 text-white px-4 py-1 text-sm rounded hover:bg-blue-600 transition duration-200">Réinitialiser le mot de passe</button>
-                                <button className="cursor-pointer bg-blue-500 text-white px-4 py-1 text-sm rounded hover:bg-blue-600 transition duration-200">Modifier le rôle</button>
-                                <button className="cursor-pointer bg-red-500 text-white px-4 py-1 text-sm rounded hover:bg-red-600 transition duration-200">Supprimer {checkedUsers.size > 1 ? 'les comptes' : 'le compte'}</button>
+                                <button onClick={ () => handleResetPassword(checkedUsers) } className="cursor-pointer bg-blue-500 text-white px-4 py-1 text-sm rounded hover:bg-blue-600 transition duration-200">Réinitialiser le mot de passe</button>
+                                <button onClick={ () => handleChangeRole(checkedUsers) } className="cursor-pointer bg-blue-500 text-white px-4 py-1 text-sm rounded hover:bg-blue-600 transition duration-200">Modifier le rôle</button>
+                                <button onClick={ () => handleDeleteAccount(checkedUsers) } className="cursor-pointer bg-red-500 text-white px-4 py-1 text-sm rounded hover:bg-red-600 transition duration-200">Supprimer {checkedUsers.size > 1 ? 'les comptes' : 'le compte'}</button>
                             </>
                         )}
                     </div>
