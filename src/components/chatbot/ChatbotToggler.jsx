@@ -8,7 +8,7 @@ const ChatbotToggler = () => {
     return (
         <div className="fixed bottom-4 right-4 flex items-end gap-2">
             {/* Chatbot container */}
-            <div className={`transition-all duration-300 rounded-xl overflow-hidden ${renderChatbot ? 'w-[350px] h-[500px]' : 'w-0 h-0'} `}>
+            <div className={`transition-all duration-300 rounded-xl overflow-hidden ${renderChatbot ? 'w-[400px] h-[500px]' : 'w-0 h-0'} `}>
                 {renderChatbot && <Chatbot onClose={() => setRenderChatbot(false)} />}
             </div>
 
