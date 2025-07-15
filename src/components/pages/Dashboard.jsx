@@ -1,5 +1,11 @@
+import ChatbotToggler from "../chatbot/chatbotToggler";
+import Footer from "../footer/Footer";
+
 const Dashboard = () => {
     return (
+        <>
+            <ChatbotToggler />
+
         <div className="dashboard flex justify-start items-center flex-col w-full min-h-[100dvh] bg-white text-black">
             <h1>Dashboard</h1>
             <p>Welcome to the dashboard!</p>
