@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { userTest } from '../../../fixtures/fixtures'
+import { userTest } from '../../fixtures/fixtures'
 
 const AdminNav = ({ isAdminPage }) => {
     const [showProfileMenu, setShowProfileMenu] = React.useState(false);

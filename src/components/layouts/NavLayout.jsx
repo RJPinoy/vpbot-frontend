@@ -1,6 +1,6 @@
 import * as React from "react";
-import AdminNav from "../pages/nav/AdminNav";
-import UserNav from "../pages/nav/UserNav";
+import AdminNav from "../nav/AdminNav";
+import UserNav from "../nav/UserNav";
 import { Outlet } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 
