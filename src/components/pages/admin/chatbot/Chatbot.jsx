@@ -39,7 +39,7 @@ const Chatbot = () => {
                     })}
                 </ul>
 
-                <div className="flex flex-row flex-1 ml-4">
+                <div className="flex flex-row flex-1 ml-4 gap-4">
                     <div className="flex flex-1 flex-col">
                         <ChatbotContentWrapper tab={ activeTab } />
                     </div>

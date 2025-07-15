@@ -59,7 +59,7 @@ const ChatbotGeneral = () => {
                         name="ai-model"
                         id="ai-model"
                         onChange={ (e) => setSelectedModel(e.target.value) }
-                        className="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="px-3 py-2 border rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                         <option value="">-- Choisissez un modèle --</option>
                         {AiModelAvailable.map((model) => (
@@ -73,7 +73,7 @@ const ChatbotGeneral = () => {
                 <button
                     type="submit"
                     onClick={ handleSubmit }
-                    className="w-full rounded-md bg-[#306285] px-4 py-2 text-white text-lg font-semibold hover:bg-[#1E3E55] transition duration-200 ease-in-out"
+                    className="w-full rounded-md bg-[#306285] px-4 py-2 text-white text-lg font-semibold cursor-pointer hover:bg-[#1E3E55] transition duration-200 ease-in-out"
                 >
                     Sauvegarder
                 </button>

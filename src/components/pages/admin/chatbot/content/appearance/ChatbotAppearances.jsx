@@ -64,7 +64,7 @@ const ChatbotAppearances = () => {
                             name="color-font-1"
                             value={colorFont1}
                             onChange={(e) => setColorFont1(e.target.value)}
-                            className="h-10 w-20 rounded"
+                            className="h-10 w-20 cursor-pointer rounded"
                         />
                     </div>
                     <div  className="flex flex-col justify-between w-full">
@@ -77,7 +77,7 @@ const ChatbotAppearances = () => {
                             name="color-font-2"
                             value={colorFont2}
                             onChange={(e) => setColorFont2(e.target.value)}
-                            className="h-10 w-20 rounded"
+                            className="h-10 w-20 cursor-pointer rounded"
                         />
                     </div>
                 </div>
@@ -93,7 +93,7 @@ const ChatbotAppearances = () => {
                             name="color-principal"
                             value={colorPrincipal}
                             onChange={(e) => setColorPrincipal(e.target.value)}
-                            className="h-10 w-20 rounded"
+                            className="h-10 w-20 cursor-pointer rounded"
                         />
                     </div>
                     <div  className="flex flex-col justify-between w-full">
@@ -106,14 +106,14 @@ const ChatbotAppearances = () => {
                             name="color-secondary"
                             value={colorSecondary}
                             onChange={(e) => setColorSecondary(e.target.value)}
-                            className="h-10 w-20 rounded"
+                            className="h-10 w-20 cursor-pointer rounded"
                         />
                     </div>
                 </div>
 
                 <button
                     type="submit"
-                    className="w-full rounded-md bg-[#306285] px-4 py-2 text-white text-lg font-semibold hover:bg-[#1E3E55] transition duration-200 ease-in-out"
+                    className="w-full rounded-md bg-[#306285] px-4 py-2 text-white text-lg font-semibold cursor-pointer hover:bg-[#1E3E55] transition duration-200 ease-in-out"
                 >
                     Sauvegarder
                 </button>

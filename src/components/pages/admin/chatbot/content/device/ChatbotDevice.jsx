@@ -65,7 +65,7 @@ const ChatbotDevice = () => {
 
                 <button
                     type="submit"
-                    className="w-full rounded-md bg-[#306285] px-4 py-2 text-white text-lg font-semibold hover:bg-[#1E3E55] transition duration-200 ease-in-out"
+                    className="w-full rounded-md bg-[#306285] px-4 py-2 text-white text-lg font-semibold cursor-pointer hover:bg-[#1E3E55] transition duration-200 ease-in-out"
                 >
                     Sauvegarder
                 </button>

@@ -1,11 +1,10 @@
-import * as React from 'react'
+import Chatbot from '../../../../../chatbot/Chatbot';
 
 const ChatbotPlayground = () => {
-
     return (
         <>
-            <div className="w-full border rounded-xl p-4">
-                
+            <div className="w-full border rounded-xl h-[60dvh] overflow-hidden">
+                <Chatbot />
             </div>
         </>
     );
