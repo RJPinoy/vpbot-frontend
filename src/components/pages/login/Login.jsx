@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useModal } from '../modals/ModalProvider';
+import { useModal } from '../../modals/ModalProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Login = () => {
