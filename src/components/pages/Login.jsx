@@ -40,7 +40,7 @@ const Login = () => {
 
     return (
         <>
-            <div className="flex flex-col items-center justify-center w-full h-screen bg-[url(/assets/images/login/login-background-image.jpg)] bg-cover bg-center">
+            <div className="flex flex-col items-center justify-center w-full h-screen bg-[url('/assets/images/login/login-background-image.jpg')] bg-cover bg-center">
                 <div>
                     <img src="/assets/images/login/login-logo.png" alt="Logo" />
                 </div>
