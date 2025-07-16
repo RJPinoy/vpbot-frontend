@@ -7,8 +7,9 @@ const Dashboard = () => {
             <ChatbotToggler />
 
             <div className="dashboard flex justify-start items-center flex-col w-full min-h-[100dvh] bg-white text-black">
-                <h1>Dashboard</h1>
-                <p>Welcome to the dashboard!</p>
+                <div className="w-full flex justify-center items-center flex-col p-8 mb-8 bg-[#005CA7] text-white">
+                    <h1 className="w-1/3 text-center text-4xl font-bold">Bienvenue sur votre espace client Visual Planning</h1>
+                </div>
 
                 <form action="" id="form-init" className="flex justify-center items-start flex-col border border-gray-300 p-4 rounded rounded-md w-2/3">
                     <div className="flex justify-between items-center p-4 w-full">
