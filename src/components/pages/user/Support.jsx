@@ -92,7 +92,7 @@ const Support = () => {
                                 ></textarea>
                                 <button
                                     type="submit"
-                                    className="h-[30%] px-2 bg-[#306285] text-white rounded-md hover:bg-[#1E3E55] transition duration-200 ease-in-out cursor-pointer"
+                                    className="py-1 px-2 bg-[#306285] text-white rounded-md hover:bg-[#1E3E55] transition duration-200 ease-in-out cursor-pointer"
                                     onClick={(e) => {
                                         e.preventDefault();
                                         console.log('Message sent');
