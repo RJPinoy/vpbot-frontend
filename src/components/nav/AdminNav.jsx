@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 import { userTest } from '../../fixtures/fixtures'
+import { logout } from '../../api/axios';
 
 const AdminNav = ({ isAdminPage }) => {
     const [showProfileMenu, setShowProfileMenu] = React.useState(false);
+    const navigate = useNavigate();
 
     const handleProfileMenu = () => {
         // console.log("Profile clicked");
@@ -12,6 +15,14 @@ const AdminNav = ({ isAdminPage }) => {
 
     const handleLogout = () => {
         console.log("Logout clicked");
+        logout()
+            .then(() => {
+                setShowProfileMenu(false);
+                navigate('/login');
+            })
+            .catch(error => {
+                console.error("Logout error:", error);
+            });
     };
 
     return (

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useModal } from '../../modals/ModalProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { login } from '../../../api/axios';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -35,7 +36,20 @@ const Login = () => {
         setRemember(remember);
         setErrorMessage('');
         console.log('Login attempt:', { username, password, remember });
-        navigate('/dashboard');
+        login(username, password)
+            .then(response => {
+                if (response && response.token) {
+                    // Dispatch login action or handle successful login
+                    // dispatch(loginSuccess(response.data));
+                    navigate('/dashboard');
+                } else {
+                    setErrorMessage('Invalid credentials. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Login error:', error);
+                setErrorMessage('Login failed. Please check your credentials and try again.');
+            });
     }
 
     return (

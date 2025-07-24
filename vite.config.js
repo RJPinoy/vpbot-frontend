@@ -8,4 +8,13 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost', // Symfony server
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 })
