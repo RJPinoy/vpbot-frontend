@@ -2,20 +2,20 @@ import * as React from "react";
 import { useModal } from "../../../modals/ModalProvider";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../../../stores/slices/adminSlice";
-import { userTest } from '../../../../fixtures/fixtures'
 
 const AdminAccount = () => {
     const user = useSelector((state) => state.admin.user);
-    const [firstName, setFirstName] = React.useState(userTest.firstName);
-    const [lastName, setLastName] = React.useState(userTest.lastName);
-    const [username, setUsername] = React.useState(userTest.username);
-    const [email, setEmail] = React.useState(userTest.email);
-    const [img, setImg] = React.useState(userTest.img);
+    const currentUser = JSON.parse(localStorage.getItem('extranet-user'));
+    const [firstName, setFirstName] = React.useState(currentUser.firstName);
+    const [lastName, setLastName] = React.useState(currentUser.lastName);
+    const [username, setUsername] = React.useState(currentUser.username);
+    const [email, setEmail] = React.useState(currentUser.email);
+    const [img, setImg] = React.useState(currentUser.img);
     const { showModal } = useModal();
     const dispatch = useDispatch();
 
     React.useEffect(() => {
-        dispatch(setUser(userTest));
+        dispatch(setUser(currentUser));
     }, []);
 
     React.useEffect(() => {

@@ -12,6 +12,7 @@ const ProtectedRoute = () => {
             const user = await checkAuth();
 
             if (user) {
+                localStorage.setItem('extranet-user', JSON.stringify(user));
                 setIsAuth(true);
                 setIsAdmin(user.roles.includes('ADMIN'));
             }
