@@ -1,20 +1,49 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useModal } from '../../modals/ModalProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { login } from '../../../api/axios';
+import { login, checkAuth } from '../../../api/axios';
+import { setUser, setRememberMe, setIsLoading } from '../../../stores/slices/userSlice';
 
 const Login = () => {
+    const { isAuthenticated } = useSelector((state) => state.userSlice);
+    console.log(isAuthenticated);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { showModal } = useModal();
 
     const [showPassword, setShowPassword] = React.useState(false);
-    const [username, setUsername] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [remember, setRemember] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
+    
+    React.useEffect(() => {
+        const check = async () => {
+            try {
+                console.log('Checking...');
+                setIsLoading(true);
+                const user = await checkAuth();
+                if (user) {
+                    dispatch(setUser({
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        username: user.username,
+                        email: user.email,
+                        img: user.img,
+                        roles: user.roles,
+                    }));
+                    localStorage.setItem('extranet-user', JSON.stringify(user));
+                }
+            } catch (e) {
+                console.error("Auth check failed", e);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        if (!isAuthenticated) {
+            check();
+        }
+    }, [isAuthenticated]);
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -31,16 +60,11 @@ const Login = () => {
         const password = formData.get('password');
         const remember = formData.get('remember') === 'on';
 
-        setUsername(username);
-        setPassword(password);
-        setRemember(remember);
         setErrorMessage('');
         console.log('Login attempt:', { username, password, remember });
         login(username, password)
             .then(response => {
                 if (response && response.token) {
-                    // Dispatch login action or handle successful login
-                    // dispatch(loginSuccess(response.data));
                     navigate('/dashboard');
                 } else {
                     setErrorMessage('Invalid credentials. Please try again.');

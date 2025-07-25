@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from 'react-router'
 import App from '../App.jsx'
 import Login from '../components/pages/login/Login.jsx'
 import ProtectedRoute from './ProtectedRoute.jsx'
+import PublicRoute from './PublicRoute.jsx'
 import NavLayout from '../components/layouts/NavLayout.jsx'
 import Support from '../components/pages/user/Support.jsx'
 import Tools from '../components/pages/user/Tools.jsx'
@@ -15,33 +16,36 @@ export const router = createBrowserRouter([
     },
     {
         path: '/login',
-        element: <Login />,
+        element: <PublicRoute />,
+        children: [
+            { path: '', element: <Login />, }
+        ]
     },
     {
         path: '/',
         element: <ProtectedRoute />,
         children: [
-        {
-            element: <NavLayout />,
-            children: [
-                { path: 'dashboard', element: <App /> },
-                { path: 'support', element: <Support /> },
-                { path: 'tools', element: <Tools /> },
-                { path: 'documentation', element: <Documentation /> },
-            ],
-        },
+            {
+                element: <NavLayout />,
+                children: [
+                    { path: 'dashboard', element: <App /> },
+                    { path: 'support', element: <Support /> },
+                    { path: 'tools', element: <Tools /> },
+                    { path: 'documentation', element: <Documentation /> },
+                ],
+            },
         ],
     },
     {
         path: '/admin/',
-        element: <ProtectedRoute adminOnly={true} />,
+        element: <ProtectedRoute />,
         children: [
-        {
-            element: <NavLayout />,
-            children: [
-                { path: 'dashboard', element: <AdminDashboard /> },
-            ]
-        },
+            {
+                element: <NavLayout />,
+                children: [
+                    { path: 'dashboard', element: <AdminDashboard /> },
+                ]
+            },
         ],
     },
 ]);

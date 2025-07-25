@@ -1,10 +1,10 @@
 import * as React from "react";
 import { useModal } from "../../../modals/ModalProvider";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../../../stores/slices/adminSlice";
+import { setUser } from "../../../../stores/slices/userSlice";
 
 const AdminAccount = () => {
-    const user = useSelector((state) => state.admin.user);
+    const user = useSelector((state) => state.userSlice.user);
     const currentUser = JSON.parse(localStorage.getItem('extranet-user'));
     const [firstName, setFirstName] = React.useState(currentUser.firstName);
     const [lastName, setLastName] = React.useState(currentUser.lastName);

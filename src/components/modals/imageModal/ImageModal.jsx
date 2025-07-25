@@ -2,7 +2,7 @@ import * as React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { sanitizeInput } from "../../../utils";
 import { useDispatch } from "react-redux";
-import { setUserImage } from "../../../stores/slices/adminSlice";
+import { setUserImage } from "../../../stores/slices/userSlice";
 import { useModal } from "../ModalProvider";
 
 const ImageModal = ({ handleCancel, currentImageUrl }) => {
