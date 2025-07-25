@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Footer from "../../footer/Footer";
+import Footer from "../../pages/footer/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Support = () => {

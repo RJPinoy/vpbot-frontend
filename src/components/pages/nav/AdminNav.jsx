@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
-import { logout } from '../../api/axios';
+import { logout } from '../../../api/axios';
 
 const AdminNav = ({ isAdminPage }) => {
     const [showProfileMenu, setShowProfileMenu] = React.useState(false);
@@ -19,6 +19,7 @@ const AdminNav = ({ isAdminPage }) => {
         logout()
             .then(() => {
                 setShowProfileMenu(false);
+                localStorage.removeItem('extranet-user');
                 navigate('/login');
             })
             .catch(error => {

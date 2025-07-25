@@ -1,5 +1,5 @@
 import ChatbotToggler from "../../chatbot/chatbotToggler";
-import Footer from "../../footer/Footer";
+import Footer from "../../pages/footer/Footer";
 
 const Dashboard = () => {
     return (
