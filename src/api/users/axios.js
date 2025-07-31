@@ -1,5 +1,15 @@
 import { api } from "../axios";
 
+export const modifyUser = async (user_id, params) => {
+    try {
+        const response = await api.put(`/api/users/${user_id}`, params);
+        return response.data;
+    } catch (error) {
+        console.error("Modify user failed:", error);
+        return null;
+    }
+}
+
 export const listUsers = async (limit = null, offset = null, order = null) => {
     try {
         const params = {};

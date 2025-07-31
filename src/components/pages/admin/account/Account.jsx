@@ -2,6 +2,7 @@ import * as React from "react";
 import { useModal } from "../../../modals/ModalProvider";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../../../stores/slices/userSlice";
+import { modifyUser } from "../../../../api/users/axios";
 
 const AdminAccount = () => {
     const user = useSelector((state) => state.userSlice.user);
@@ -52,9 +53,10 @@ const AdminAccount = () => {
         });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const updatedUser = {
+            ...user,
             firstName: firstName,
             lastName: lastName,
             username: username,
@@ -62,7 +64,14 @@ const AdminAccount = () => {
             img: img,
         };
         dispatch(setUser(updatedUser));
-        console.log("User updated:", updatedUser);
+        console.log("User updating: ", user.id, updatedUser);
+        try {
+            const response = await modifyUser(user.id, updatedUser);
+            console.log(response);
+        } catch (error) {
+            console.error("Modify user failed:", error);
+            return null;
+        }
     }
 
     const handleChangePassword = (e) => {
