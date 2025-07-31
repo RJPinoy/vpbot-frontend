@@ -1,10 +1,11 @@
 import * as React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { deleteUser } from "../../../api/users/axios";
 
 const ConfirmModal = ({ handleCancel, userId, message, action}) => {
     const [selectedRole, setSelectedRole] = React.useState("USER");
 
-    const handleConfirm = () => {
+    const handleConfirm = async () => {
         switch (action) {
             case "resetPassword":
                 console.log("Confirming reset password... : ", userId);
@@ -15,6 +16,14 @@ const ConfirmModal = ({ handleCancel, userId, message, action}) => {
                 return
             case "deleteAccount":
                 console.log("Confirming deletion... : ", userId);
+                try {
+                    for (const id of userId) {
+                        await deleteUser(id);
+                        console.log("User ", id, " deleted successfully.");
+                    }
+                } catch (error) {
+                    console.error("Error while deleting user: ", error);
+                }
                 return
             default:
                 return

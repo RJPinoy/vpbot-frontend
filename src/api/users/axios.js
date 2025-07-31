@@ -16,3 +16,13 @@ export const listUsers = async (limit = null, offset = null, order = null) => {
         return null;
     }
 }
+
+export const deleteUser = async (user_id) => {
+    try {
+        const response = await api.delete(`/api/users/${user_id}`)
+        return response.data;
+    } catch (error) {
+        console.error("Deleting user failed:", error);
+        return null;
+    }
+}
