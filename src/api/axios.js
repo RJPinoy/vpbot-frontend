@@ -21,9 +21,9 @@ export const checkAuth = async () => {
     }
 };
 
-export const login = async (email, password) => {
+export const login = async (email, password, rememberMe) => {
     try {
-        const response = await api.post('/api/login', { email, password });
+        const response = await api.post('/api/login', { email, password, rememberMe });
         console.log("Login successful:", response.data);
         return response.data;
     } catch (error) {

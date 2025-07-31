@@ -13,12 +13,15 @@ export const userSlice = createSlice({
         },
         rememberMe: false,
         isAuthenticated: false,
-        isLoading: false,
+        isLoading: true,
     },
     reducers: {
         setUser: (state, action) => {
             state.user = action.payload;
             state.isAuthenticated = true;
+        },
+        setIsAuthenticated: (state, action) => {
+            state.isAuthenticated = action.payload;
         },
         setUserImage: (state, action) => {
             state.user.img = action.payload;
@@ -32,5 +35,5 @@ export const userSlice = createSlice({
     },
 });
 
-export const { setUser, setUserImage, setRememberMe, setIsLoading } = userSlice.actions;
+export const { setUser, setIsAuthenticated, setUserImage, setRememberMe, setIsLoading } = userSlice.actions;
 export default userSlice.reducer;

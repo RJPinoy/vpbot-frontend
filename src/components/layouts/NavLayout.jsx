@@ -6,8 +6,9 @@ import { useLocation } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
 const NavLayout = () => {
-    const isAdmin = useSelector((state) => state.userSlice.user.roles?.includes('ROLE_ADMIN') || state.userSlice.user.roles?.includes('ROLE_SUPER_ADMIN'));
-    console.log(isAdmin)
+    const roles = useSelector((state) => state.userSlice.user?.roles || []);
+    const isAdmin = roles.includes('ROLE_ADMIN') || roles.includes('ROLE_SUPER_ADMIN');
+    console.log(roles, isAdmin)
     const location = useLocation();
     const isAdminPage = location.pathname.startsWith('/admin');
 
