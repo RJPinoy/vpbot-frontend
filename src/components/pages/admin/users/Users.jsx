@@ -3,8 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { parseDate } from '../../../../utils';
 import { useModal } from '../../../modals/ModalProvider';
 import { listUsers } from '../../../../api/users/axios';
+import { useSelector } from 'react-redux';
 
 const Users = () => {
+    const currentUser = useSelector((state) => state.userSlice.user);
     const [users, setUsers] = React.useState([]);
     const [inputSearch, setInputSearch] = React.useState("");
     const [checkedUsers, setCheckedUsers] = React.useState(new Set());
@@ -287,9 +289,15 @@ const Users = () => {
                                                             <span className='w-full'>{user.lastName.toUpperCase()} {user.firstName}</span>
                                                         </div>
                                                         <div className='flex flex-col justify-center gap-x-2 opacity-0 transition duration-200 ease-in-out group-hover:opacity-100'>
-                                                            <button onClick={ () => handleResetPassword(user.id) } className="italic text-sm text-blue-600 cursor-pointer hover:underline">Réinitialiser mot de passe</button>
-                                                            <button onClick={ () => handleChangeRole(user.id) } className="italic text-sm text-blue-600 cursor-pointer hover:underline">Modifier le rôle</button>
-                                                            <button onClick={ () => handleDeleteAccount(user.id) } className="italic text-sm text-red-600 cursor-pointer hover:underline">Supprimer le compte</button>
+                                                            { currentUser.id === user.id ?
+                                                                <a href='/admin/dashboard?tab=compte' className="italic text-center text-sm text-blue-600 cursor-pointer hover:underline">Modifier le profil</a>
+                                                            :
+                                                                <>
+                                                                    <button onClick={ () => handleResetPassword(user.id) } className="italic text-sm text-blue-600 cursor-pointer hover:underline">Réinitialiser mot de passe</button>
+                                                                    <button onClick={ () => handleChangeRole(user.id) } className="italic text-sm text-blue-600 cursor-pointer hover:underline">Modifier le rôle</button>
+                                                                    <button onClick={ () => handleDeleteAccount(user.id) } className="italic text-sm text-red-600 cursor-pointer hover:underline">Supprimer le compte</button>
+                                                                </>
+                                                            }
                                                         </div>
                                                     </div>
                                                 </td>
