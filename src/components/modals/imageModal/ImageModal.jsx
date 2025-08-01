@@ -1,11 +1,13 @@
 import * as React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { sanitizeInput } from "../../../utils";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUserImage } from "../../../stores/slices/userSlice";
 import { useModal } from "../ModalProvider";
+import { modifyUser } from "../../../api/users/axios";
 
 const ImageModal = ({ handleCancel, currentImageUrl }) => {
+    const user = useSelector((state) => state.userSlice.user);
     const [imageUrl, setImageUrl] = React.useState(currentImageUrl);
 
     const dispatch = useDispatch();
@@ -15,10 +17,18 @@ const ImageModal = ({ handleCancel, currentImageUrl }) => {
         setImageUrl(e.target.value);
     }
 
-    const handleConfirm = () => {
-        dispatch(setUserImage(sanitizeInput(imageUrl)));
+    const handleConfirm = async () => {
         console.log(sanitizeInput(imageUrl));
-        hideModal();
+        try {
+            const response = await modifyUser(user.id, {img: imageUrl} );
+            console.log(response);
+            dispatch(setUserImage(sanitizeInput(imageUrl)));
+        } catch (error) {
+            console.error("Modify user failed:", error);
+            return null;
+        } finally {
+            hideModal();
+        }
     }
 
     return (

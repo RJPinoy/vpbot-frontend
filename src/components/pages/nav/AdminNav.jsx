@@ -2,14 +2,15 @@ import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../../api/axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser, setIsLoading, setIsAuthenticated } from '../../../stores/slices/userSlice';
 
 const AdminNav = ({ isAdminPage }) => {
+    const currentUser = useSelector((state) => state.userSlice.user);
     const [showProfileMenu, setShowProfileMenu] = React.useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const currentUser = JSON.parse(localStorage.getItem('extranet-user'));
+    // const currentUser = JSON.parse(localStorage.getItem('extranet-user'));
 
     const handleProfileMenu = () => {
         // console.log("Profile clicked");
