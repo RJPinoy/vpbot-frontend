@@ -110,7 +110,7 @@ const AdminAccount = () => {
                         {img && (<img className="rounded border-2 border-gray-700 aspect-square w-[15dvh] object-cover" src={ img } alt="Photo de profil" />)}
                     </div>
                 </div>
-                <label className="mb-4">Mot de passe : <button onClick={ handleChangePassword } className="italic text-sm underline cursor-pointer text-[#37749F] hover:text-[#1E3E55] transition-all duration-200">Changer son mot de passe</button></label>
+                <label className="w-fit mb-4">Mot de passe : <button onClick={ handleChangePassword } className="italic text-sm underline cursor-pointer text-[#37749F] hover:text-[#1E3E55] transition-all duration-200">Changer son mot de passe</button></label>
                 <div className="flex justify-start items-center flex-row gap-4">
                     <button type="submit" onClick={ handleSubmit } className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">Enregistrer</button>
                 </div>

@@ -1,9 +1,12 @@
 import * as React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { deleteUser } from "../../../api/users/axios";
+import { modifyUser, deleteUser } from "../../../api/users/axios";
+import { useModal } from "../ModalProvider";
 
-const ConfirmModal = ({ handleCancel, userId, message, action}) => {
-    const [selectedRole, setSelectedRole] = React.useState("USER");
+const ConfirmModal = ({ handleCancel, userId, message, action, fetchUsers }) => {
+    const [selectedRole, setSelectedRole] = React.useState("ROLE_USER");
+
+    const { hideModal } = useModal();
 
     const handleConfirm = async () => {
         switch (action) {
@@ -13,16 +16,29 @@ const ConfirmModal = ({ handleCancel, userId, message, action}) => {
             case "changeRole":
                 console.log("Confirming change role... : ", userId);
                 console.log("Selected role:", selectedRole);
+                try {
+                    for (const id of userId) {
+                        await modifyUser(id, {roles: [selectedRole]} );
+                        console.log(`User ${id} modified to ${selectedRole} successfully.`);
+                    }
+                    if (fetchUsers) fetchUsers();
+                } catch (error) {
+                    console.error("Modify user failed:", error);
+                } finally {
+                    hideModal();
+                }
                 return
             case "deleteAccount":
                 console.log("Confirming deletion... : ", userId);
                 try {
                     for (const id of userId) {
                         await deleteUser(id);
-                        console.log("User ", id, " deleted successfully.");
+                        console.log(`User ${id} deleted successfully.`);
                     }
                 } catch (error) {
                     console.error("Error while deleting user: ", error);
+                } finally {
+                    hideModal();
                 }
                 return
             default:
@@ -48,8 +64,8 @@ const ConfirmModal = ({ handleCancel, userId, message, action}) => {
                             onChange={(e) => setSelectedRole(e.target.value)}
                             className="p-2 border rounded"
                         >
-                            <option value="USER">Utilisateur</option>
-                            <option value="ADMIN">Administrateur</option>
+                            <option value="ROLE_USER">Utilisateur</option>
+                            <option value="ROLE_ADMIN">Administrateur</option>
                         </select>
                     </div>
                 )}

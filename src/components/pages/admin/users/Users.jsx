@@ -124,6 +124,10 @@ const Users = () => {
                     </p>
                 </div>
             ),
+            fetchUsers: () => {
+                setUsers([]);
+                fetchUsers();
+            },
         })
     }
 

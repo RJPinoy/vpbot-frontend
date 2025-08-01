@@ -50,7 +50,7 @@ const AdminNav = ({ isAdminPage }) => {
                 </a>
             }
             <div className="flex items-center gap-2 h-full cursor-pointer hover:bg-gray-700 px-4 transition duration-200 ease-in-out relative" onClick={ handleProfileMenu }>
-                <span>Bonjour, {currentUser?.firstName + ' ' + currentUser?.lastName.toUpperCase()}</span>
+                <span>Bonjour, {currentUser?.firstName + ' ' + currentUser?.lastName?.toUpperCase()}</span>
                 <div
                     className="w-[30px] h-[30px] rounded-full bg-cover bg-center"
                     style={{ backgroundImage: `url(${currentUser?.img})` }}
