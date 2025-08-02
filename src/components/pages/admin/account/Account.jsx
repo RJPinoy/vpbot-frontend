@@ -2,7 +2,7 @@ import * as React from "react";
 import { useModal } from "../../../modals/ModalProvider";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../../../stores/slices/userSlice";
-import { modifyUser } from "../../../../api/users/axios";
+import { modifyUser } from "../../../../api/users/route";
 
 const AdminAccount = () => {
     const user = useSelector((state) => state.userSlice.user);

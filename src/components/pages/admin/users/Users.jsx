@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { parseDate } from '../../../../utils';
 import { useModal } from '../../../modals/ModalProvider';
-import { listUsers } from '../../../../api/users/axios';
+import { listUsers } from '../../../../api/users/route';
 import { useSelector } from 'react-redux';
 
 const Users = () => {

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { modifyUser, deleteUser } from "../../../api/users/axios";
+import { modifyUser, deleteUser } from "../../../api/users/route";
 import { useModal } from "../ModalProvider";
 
 const ConfirmModal = ({ handleCancel, userId, message, action, fetchUsers }) => {

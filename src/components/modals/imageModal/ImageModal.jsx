@@ -4,7 +4,7 @@ import { sanitizeInput } from "../../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserImage } from "../../../stores/slices/userSlice";
 import { useModal } from "../ModalProvider";
-import { modifyUser } from "../../../api/users/axios";
+import { modifyUser } from "../../../api/users/route";
 
 const ImageModal = ({ handleCancel, currentImageUrl }) => {
     const user = useSelector((state) => state.userSlice.user);
