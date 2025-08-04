@@ -17,10 +17,10 @@ const ChatbotAppearances = () => {
         if (publicChatbot) {
             setChatbotName(publicChatbot.name);
             setChatbotIcon(publicChatbot.iconUrl);
-            setColorFont1(publicChatbot.colorFont1);
-            setColorFont2(publicChatbot.colorFont2);
-            setColorPrincipal(publicChatbot.colorPrincipal);
-            setColorSecondary(publicChatbot.colorSecondary);
+            setColorFont1(publicChatbot.fontColor1);
+            setColorFont2(publicChatbot.fontColor2);
+            setColorPrincipal(publicChatbot.mainColor);
+            setColorSecondary(publicChatbot.secondaryColor);
         }
     }, [publicChatbot]);
 
