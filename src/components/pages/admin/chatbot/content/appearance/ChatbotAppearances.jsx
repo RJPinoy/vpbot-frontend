@@ -24,6 +24,36 @@ const ChatbotAppearances = () => {
         }
     }, [publicChatbot]);
 
+    const handleChatbotName = (e) => {
+        setChatbotName(e.target.value);
+        dispatch(setPublicChatbot({name: e.target.value}))
+    }
+
+    const handleChatbotIcon = (e) => {
+        setChatbotIcon(e.target.value);
+        dispatch(setPublicChatbot({iconUrl: e.target.value}))
+    }
+
+    const handleChatbotFontColor1 = (e) => {
+        setColorFont1(e.target.value);
+        dispatch(setPublicChatbot({fontColor1: e.target.value}))
+    }
+
+    const handleChatbotFontColor2 = (e) => {
+        setColorFont2(e.target.value);
+        dispatch(setPublicChatbot({fontColor2: e.target.value}))
+    }
+
+    const handleMainColor = (e) => {
+        setColorPrincipal(e.target.value);
+        dispatch(setPublicChatbot({mainColor: e.target.value}))
+    }
+
+    const handleSecondaryColor = (e) => {
+        setColorSecondary(e.target.value);
+        dispatch(setPublicChatbot({secondaryColor: e.target.value}))
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -54,7 +84,7 @@ const ChatbotAppearances = () => {
                         id="chatbot-name"
                         name="chatbot-name"
                         value={chatbotName}
-                        onChange={(e) => setChatbotName(e.target.value)}
+                        onChange={handleChatbotName}
                         className="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
@@ -68,7 +98,7 @@ const ChatbotAppearances = () => {
                         id="chatbot-icon"
                         name="chatbot-icon"
                         value={chatbotIcon}
-                        onChange={(e) => setChatbotIcon(e.target.value)}
+                        onChange={handleChatbotIcon}
                         className="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
@@ -83,7 +113,7 @@ const ChatbotAppearances = () => {
                             id="color-font-1"
                             name="color-font-1"
                             value={colorFont1}
-                            onChange={(e) => setColorFont1(e.target.value)}
+                            onChange={handleChatbotFontColor1}
                             className="h-10 w-20 cursor-pointer rounded"
                         />
                     </div>
@@ -96,7 +126,7 @@ const ChatbotAppearances = () => {
                             id="color-font-2"
                             name="color-font-2"
                             value={colorFont2}
-                            onChange={(e) => setColorFont2(e.target.value)}
+                            onChange={handleChatbotFontColor2}
                             className="h-10 w-20 cursor-pointer rounded"
                         />
                     </div>
@@ -112,7 +142,7 @@ const ChatbotAppearances = () => {
                             id="color-principal"
                             name="color-principal"
                             value={colorPrincipal}
-                            onChange={(e) => setColorPrincipal(e.target.value)}
+                            onChange={handleMainColor}
                             className="h-10 w-20 cursor-pointer rounded"
                         />
                     </div>
@@ -125,7 +155,7 @@ const ChatbotAppearances = () => {
                             id="color-secondary"
                             name="color-secondary"
                             value={colorSecondary}
-                            onChange={(e) => setColorSecondary(e.target.value)}
+                            onChange={handleSecondaryColor}
                             className="h-10 w-20 cursor-pointer rounded"
                         />
                     </div>
