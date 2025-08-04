@@ -5,8 +5,8 @@ import { setPublicChatbot } from '../../../../../../stores/slices/publicChatbotS
 
 const ChatbotGreeting = () => {
     const publicChatbot = useSelector((state) => state.publicChatbotSlice);
-    const [greetingMessage, setGreetingMessage] = React.useState('Bonjour ! Comment puis-je vous aider sur la documentation de Visual Planning ?');
-    const [promptPlaceholder, setPromptPlaceholder] = React.useState('Posez-moi vos questions !');
+    const [greetingMessage, setGreetingMessage] = React.useState('');
+    const [promptPlaceholder, setPromptPlaceholder] = React.useState('');
     const dispatch = useDispatch();
 
     React.useEffect(() => {

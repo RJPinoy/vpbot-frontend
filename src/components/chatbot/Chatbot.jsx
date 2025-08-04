@@ -1,9 +1,21 @@
 import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector } from 'react-redux';
 
 const Chatbot = ({ onClose }) => {
-    const [chatbotLogo, setChatbotLogo] = React.useState('/assets/images/chatbot/chatbot.gif');
+    const publicChatbot = useSelector((state) => state.publicChatbotSlice);
+    const [chatbotLogo, setChatbotLogo] = React.useState();
+    const [greetingMessage, setGreetingMessage] = React.useState('');
+    const [promptPlaceholder, setPromptPlaceholder] = React.useState('');
     const [message, setMessage] = React.useState('');
+
+    React.useEffect(() => {
+        if (publicChatbot) {
+            setChatbotLogo(publicChatbot.iconUrl);
+            setGreetingMessage(publicChatbot.welcomeMessage);
+            setPromptPlaceholder(publicChatbot.promptMessage);
+        }
+    }, [publicChatbot]);
 
     const textareaRef = React.useRef(null);
 

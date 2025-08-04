@@ -5,8 +5,8 @@ import { setPublicChatbot } from '../../../../../../stores/slices/publicChatbotS
 
 const ChatbotPosition = () => {
     const publicChatbot = useSelector((state) => state.publicChatbotSlice);
-    const [renderChatbot, setRenderChatbot] = React.useState(false);
-    const [chatbotPosition, setChatbotPosition] = React.useState('right');
+    const [renderChatbot, setRenderChatbot] = React.useState(true);
+    const [chatbotPosition, setChatbotPosition] = React.useState('');
     const dispatch = useDispatch();
 
     React.useEffect(() => {
