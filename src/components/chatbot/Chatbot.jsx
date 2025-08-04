@@ -71,7 +71,13 @@ const Chatbot = ({ onClose }) => {
                         ref={textareaRef}
                         value={message}
                         onChange={handleChange}
-                        placeholder="Posez-moi vos questions !"
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' && !e.shiftKey) {
+                                e.preventDefault();
+                                handleSubmit(e);
+                            }
+                        }}
+                        placeholder={promptPlaceholder}
                         rows={1}
                         className="w-full max-h-[7rem] text-black px-4 py-2 border rounded-md resize-none overflow-y-auto focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
                     />
