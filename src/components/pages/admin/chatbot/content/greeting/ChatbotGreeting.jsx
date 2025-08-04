@@ -1,16 +1,32 @@
 import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { modifyPublicChatbot } from '../../../../../../api/chatbot/public/route';
+import { setPublicChatbot } from '../../../../../../stores/slices/publicChatbotSlice';
 
 const ChatbotGreeting = () => {
+    const publicChatbot = useSelector((state) => state.publicChatbotSlice);
     const [greetingMessage, setGreetingMessage] = React.useState('Bonjour ! Comment puis-je vous aider sur la documentation de Visual Planning ?');
-    const [promptPlaceholder, setPromptPlaceholder] = React.useState('Posez-moi vos questions!');
+    const [promptPlaceholder, setPromptPlaceholder] = React.useState('Posez-moi vos questions !');
+    const dispatch = useDispatch();
+
+    React.useEffect(() => {
+        if (publicChatbot) {
+            setGreetingMessage(publicChatbot.welcomeMessage);
+            setPromptPlaceholder(publicChatbot.promptMessage);
+        }
+    }, [publicChatbot]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log({
-            greetingMessage,
-            promptPlaceholder
-        })
+        const params = {
+            welcomeMessage: greetingMessage,
+            promptMessage: promptPlaceholder,
+        };
+
+        console.log(params);
+        modifyPublicChatbot(params);
+        dispatch(setPublicChatbot(params));
     }
 
     return (

@@ -1,16 +1,32 @@
 import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { modifyPublicChatbot } from '../../../../../../api/chatbot/public/route';
+import { setPublicChatbot } from '../../../../../../stores/slices/publicChatbotSlice';
 
 const ChatbotPosition = () => {
+    const publicChatbot = useSelector((state) => state.publicChatbotSlice);
     const [renderChatbot, setRenderChatbot] = React.useState(false);
     const [chatbotPosition, setChatbotPosition] = React.useState('right');
+    const dispatch = useDispatch();
+
+    React.useEffect(() => {
+        if (publicChatbot) {
+            setRenderChatbot(publicChatbot.renderEveryPages);
+            setChatbotPosition(publicChatbot.position);
+        }
+    }, [publicChatbot]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log({
-            renderChatbot,
-            chatbotPosition,
-        });
+        const params = {
+            renderEveryPages: renderChatbot,
+            position: chatbotPosition,
+        };
+
+        console.log(params);
+        modifyPublicChatbot(params);
+        dispatch(setPublicChatbot(params));
     };
 
     return (

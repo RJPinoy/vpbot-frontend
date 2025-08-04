@@ -1,24 +1,44 @@
 import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { modifyPublicChatbot } from '../../../../../../api/chatbot/public/route';
+import { setPublicChatbot } from '../../../../../../stores/slices/publicChatbotSlice';
 
 const ChatbotAppearances = () => {
+    const publicChatbot = useSelector((state) => state.publicChatbotSlice);
     const [chatbotName, setChatbotName] = React.useState('');
     const [chatbotIcon, setChatbotIcon] = React.useState('');
-    const [colorFont1, setColorFont1] = React.useState('#000000');
-    const [colorFont2, setColorFont2] = React.useState('#000000');
-    const [colorPrincipal, setColorPrincipal] = React.useState('#000000');
-    const [colorSecondary, setColorSecondary] = React.useState('#000000');
+    const [colorFont1, setColorFont1] = React.useState('');
+    const [colorFont2, setColorFont2] = React.useState('');
+    const [colorPrincipal, setColorPrincipal] = React.useState('');
+    const [colorSecondary, setColorSecondary] = React.useState('');
+    const dispatch = useDispatch();
+
+    React.useEffect(() => {
+        if (publicChatbot) {
+            setChatbotName(publicChatbot.name);
+            setChatbotIcon(publicChatbot.iconUrl);
+            setColorFont1(publicChatbot.colorFont1);
+            setColorFont2(publicChatbot.colorFont2);
+            setColorPrincipal(publicChatbot.colorPrincipal);
+            setColorSecondary(publicChatbot.colorSecondary);
+        }
+    }, [publicChatbot]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log({
-            chatbotName,
-            chatbotIcon,
-            colorFont1,
-            colorFont2,
-            colorPrincipal,
-            colorSecondary,
-        });
+        const params = {
+            name: chatbotName,
+            iconUrl: chatbotIcon,
+            fontColor1: colorFont1,
+            fontColor2: colorFont2,
+            mainColor: colorPrincipal,
+            secondaryColor: colorSecondary,
+        }
+
+        console.log(params);
+        modifyPublicChatbot(params);
+        dispatch(setPublicChatbot(params));
     };
 
     return (

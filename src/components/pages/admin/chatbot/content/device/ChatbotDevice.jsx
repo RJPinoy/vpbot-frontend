@@ -1,18 +1,35 @@
 import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { modifyPublicChatbot } from '../../../../../../api/chatbot/public/route';
+import { setPublicChatbot } from '../../../../../../stores/slices/publicChatbotSlice';
 
 const ChatbotDevice = () => {
-    const [renderChatbotMobile, setRenderChatbotMobile] = React.useState(false);
-    const [renderChatbotTablet, setRenderChatbotTablet] = React.useState(false);
-    const [renderChatbotDesktop, setRenderChatbotDesktop] = React.useState(false);
+    const publicChatbot = useSelector((state) => state.publicChatbotSlice);
+    const [renderChatbotDesktop, setRenderChatbotDesktop] = React.useState(true);
+    const [renderChatbotMobile, setRenderChatbotMobile] = React.useState(true);
+    const [renderChatbotTablet, setRenderChatbotTablet] = React.useState(true);
+    const dispatch = useDispatch();
+
+    React.useEffect(() => {
+        if (publicChatbot) {
+            setRenderChatbotDesktop(publicChatbot.showDesktop);
+            setRenderChatbotMobile(publicChatbot.showMobile);
+            setRenderChatbotTablet(publicChatbot.showTablet);
+        }
+    }, [publicChatbot]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log({
-            renderChatbotMobile,
-            renderChatbotTablet,
-            renderChatbotDesktop,
-        });
+        const params = {
+            showDesktop: renderChatbotDesktop,
+            showMobile: renderChatbotMobile,
+            showTablet: renderChatbotTablet,
+        }
+
+        console.log(params);
+        modifyPublicChatbot(params);
+        dispatch(setPublicChatbot(params));
     };
 
     return (
@@ -25,6 +42,18 @@ const ChatbotDevice = () => {
                     <legend className="text-sm font-medium text-gray-600 px-2">Appareils</legend>
 
                     <div className="flex flex-col space-y-3 mt-2">
+                        <label className="flex items-center space-x-2">
+                            <input
+                                type="checkbox"
+                                id="render-chatbot-desktop"
+                                name="render-chatbot-desktop"
+                                checked={renderChatbotDesktop}
+                                onChange={(e) => setRenderChatbotDesktop(e.target.checked)}
+                                className="h-4 w-4 text-blue-600 rounded"
+                            />
+                            <span className="text-sm text-gray-700">Bureau</span>
+                        </label>
+
                         <label className="flex items-center space-x-2">
                             <input
                                 type="checkbox"
@@ -47,18 +76,6 @@ const ChatbotDevice = () => {
                                 className="h-4 w-4 text-blue-600 rounded"
                             />
                             <span className="text-sm text-gray-700">Tablette</span>
-                        </label>
-
-                        <label className="flex items-center space-x-2">
-                            <input
-                                type="checkbox"
-                                id="render-chatbot-desktop"
-                                name="render-chatbot-desktop"
-                                checked={renderChatbotDesktop}
-                                onChange={(e) => setRenderChatbotDesktop(e.target.checked)}
-                                className="h-4 w-4 text-blue-600 rounded"
-                            />
-                            <span className="text-sm text-gray-700">Bureau</span>
                         </label>
                     </div>
                 </fieldset>

@@ -1,19 +1,37 @@
 import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { AiModelAvailable } from '../../../../../../utils';
+import { modifyPublicChatbot } from '../../../../../../api/chatbot/public/route';
+import { setPublicChatbot } from '../../../../../../stores/slices/publicChatbotSlice';
 
 const ChatbotGeneral = () => {
-    const [selectedModel, setSelectedModel] = React.useState("");
+    const publicChatbot = useSelector((state) => state.publicChatbotSlice);
     const [apiKey, setApiKey] = React.useState("");
     const [assistantId, setAssistantId] = React.useState("");
+    const [selectedModel, setSelectedModel] = React.useState("");
+    const dispatch = useDispatch();
+
+    React.useEffect(() => {
+        if (publicChatbot) 
+            {
+            setApiKey(publicChatbot.apiKey);
+            setAssistantId(publicChatbot.assistantId);
+            setSelectedModel(publicChatbot.model);
+        }
+    }, [publicChatbot]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log({
+        const params = {
             apiKey: apiKey,
             assistantId: assistantId,
             selectedModel: selectedModel,
-        })
+        };
+
+        console.log(params);
+        modifyPublicChatbot(params);
+        dispatch(setPublicChatbot(params));
     }
 
     return (
@@ -31,6 +49,7 @@ const ChatbotGeneral = () => {
                         id="api-key"
                         name="api-key"
                         placeholder="sk-..."
+                        value={apiKey}
                         onChange={ (e) => setApiKey(e.target.value) }
                         className="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
@@ -45,6 +64,7 @@ const ChatbotGeneral = () => {
                         id="assistant-id"
                         name="assistant-id"
                         placeholder="asst-..."
+                        value={assistantId}
                         onChange={ (e) => setAssistantId(e.target.value) }
                         className="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
@@ -53,18 +73,18 @@ const ChatbotGeneral = () => {
                 <div className="flex flex-col">
                     <label htmlFor="ai-model" className="mb-1 text-sm font-medium text-gray-700">
                         {/* Todo : change to current model */}
-                        Modèle IA : <span className='text-gray-400'>{selectedModel}</span>
+                        Modèle IA : <span className='text-gray-400 italic'>actuel : {publicChatbot?.model}</span>
                     </label>
                     <select
                         name="ai-model"
                         id="ai-model"
+                        value={selectedModel}
                         onChange={ (e) => setSelectedModel(e.target.value) }
                         className="px-3 py-2 border rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
-                        <option value="">-- Choisissez un modèle --</option>
-                        {AiModelAvailable.map((model) => (
-                            <option key={model} value={model}>
-                                {model}
+                        {AiModelAvailable.map((availableModel) => (
+                            <option key={availableModel} value={availableModel}>
+                                {availableModel}
                             </option>
                         ))}
                     </select>
