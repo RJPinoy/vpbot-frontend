@@ -8,3 +8,12 @@
   background-color: #282c34;
   color: white;
 }
+
+.extranet-bot-messages-link {
+  color: #f79521;
+  text-decoration: underline;
+  transition: 0.2s ease-in-out;
+}
+.extranet-bot-messages-link:hover {
+  color: #c3d93f;
+}

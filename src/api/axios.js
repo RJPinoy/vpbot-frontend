@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BACKEND_URL = '180.149.199.210'; // Change if localhost
+const BACKEND_URL = 'localhost'; // Change if localhost
 const BASE_API_URL = `http://${BACKEND_URL}:8000/`;
 
 export const api = axios.create({

@@ -73,7 +73,7 @@ function parseMarkdown(text) {
   text = text.replace(/\*(.*?)\*/gim, '<em>$1</em>');
 
   // Replace links
-  text = text.replace(/\[(.*?)\]\((.*?)\)/gim, '<a class="chatbot_vp-bot-messages-link" href="$2" target="_blank">$1</a>');
+  text = text.replace(/\[(.*?)\]\((.*?)\)/gim, '<a class="extranet-bot-messages-link" href="$2" target="_blank">$1</a>');
 
   // Replace unordered lists
   text = text.replace(/^\* (.*$)/gim, '<li>$1</li>');
@@ -97,4 +97,15 @@ function parseMarkdown(text) {
   return text.trim();
 }
 
-export { sanitizeInput, isValidEmail, parseDate, AiModelAvailable, initialMessage, fetchFailed, parseMarkdown };
+function setDefaultLocalStorage() {
+  if (!localStorage.getItem('extranet-threadIds')) {
+    localStorage.setItem('extranet-threadIds', JSON.stringify({
+      'public': {
+        'threadId': null,
+      },
+      'private': {},
+    }));
+  }
+}
+
+export { sanitizeInput, isValidEmail, parseDate, AiModelAvailable, initialMessage, fetchFailed, parseMarkdown, setDefaultLocalStorage };
