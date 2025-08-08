@@ -6,9 +6,9 @@ const ChatbotToggler = () => {
     const [renderChatbot, setRenderChatbot] = React.useState(false);
 
     return (
-        <div className="fixed bottom-4 right-4 flex items-end gap-2">
+        <div className="fixed bottom-4 right-4 flex justify-end items-end gap-2 w-fit">
             {/* Chatbot container */}
-            <div className={`transition-all duration-300 rounded-xl overflow-hidden ${renderChatbot ? 'w-[400px] h-[500px]' : 'w-0 h-0'} `}>
+            <div className={`transition-all duration-300 rounded-xl overflow-hidden ${renderChatbot ? 'ml-4 w-full sm:w-[400px] h-[500px]' : 'w-0 h-0'} `}>
                 {renderChatbot && <Chatbot onClose={() => setRenderChatbot(false)} />}
             </div>
 

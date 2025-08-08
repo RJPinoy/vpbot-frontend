@@ -1,5 +1,5 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faXmark, faEye, faEyeSlash, faUser, faCog, faHouse, faMagnifyingGlass, faCheck, faEraser, faFileImport } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faEye, faEyeSlash, faUser, faCog, faHouse, faMagnifyingGlass, faCheck, faEraser, faFileImport, faBars, faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
     // Eye icons for password visibility toggle
@@ -9,7 +9,7 @@ library.add(
     faUser, faHouse,
 
     // Settings icon for configuration or settings pages
-    faCog, faXmark, faCheck, faEraser, faFileImport,
+    faCog, faXmark, faCheck, faEraser, faFileImport, faBars, faArrowLeft, faArrowRight,
 
     faMagnifyingGlass,
 );

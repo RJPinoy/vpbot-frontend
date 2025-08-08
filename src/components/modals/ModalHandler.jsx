@@ -31,7 +31,7 @@ const ModalHandler = () => {
             className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/50 w-full h-full flex items-center justify-center flex-col z-[999]"
             onClick={hideModal}
         >
-            <div className="modal text-black font-bold bg-white rounded-lg shadow-lg p-6 min-w-1/2 max-w-2/3" onClick={(e) => e.stopPropagation()}>
+            <div className="text-black font-bold bg-white rounded-lg shadow-lg p-6 min-w-1/2 max-w-2/3" onClick={(e) => e.stopPropagation()}>
                 {renderModal()}
             </div>
         </div>

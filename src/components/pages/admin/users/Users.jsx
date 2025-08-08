@@ -204,8 +204,8 @@ const Users = () => {
         <>
             <h1 className="text-4xl font-bold w-full mb-8">Utilisateurs :</h1>
             <p>Retrouvez tous les utilisateurs de l'application.</p>
-            <div className='flex flex-row justify-between items-center w-full my-4'>
-                <div className='flex flex-row'>
+            <div className="flex flex-col md:flex-row justify-between items-center w-full my-4 gap-4 md:gap-0">
+                <div className="flex flex-wrap md:flex-nowrap gap-2 md:gap-0">
                     {["Tous", "Admin", "Utilisateur", "Inactif"].map(role => {
                         const count = [...users].filter(u => {
                             if (role === "Tous") return true;
@@ -219,7 +219,7 @@ const Users = () => {
                             <span
                                 key={role}
                                 onClick={() => setFilterRole(role)}
-                                className={`flex flex-row items-center px-2 border-r cursor-pointer hover:underline ${
+                                className={`flex items-center px-2 border-r cursor-pointer hover:underline ${
                                     filterRole === role ? "font-bold text-black" : "text-blue-600 "
                                 }`}
                             >
@@ -229,10 +229,25 @@ const Users = () => {
                     })}
                 </div>
 
-                <div className='relative'>
-                    <label htmlFor="search" className='mr-2'>Recherche :</label>
-                    <input type="text" id='search' name="search" className='border rounded pl-2 pr-6 py-1' value={ inputSearch } onChange={ handleInputChange } />
-                    <div className={`absolute top-1/2 -translate-y-1/2 right-2 ${inputSearch ? 'cursor-pointer' : ''}`} onClick={ handleResetInputSearch }>
+                <div className="relative w-full md:w-auto">
+                    <label htmlFor="search" className="mr-2 sr-only md:not-sr-only">Recherche :</label>
+                    <input
+                        type="text"
+                        id="search"
+                        name="search"
+                        className="border rounded pl-2 pr-6 py-1 w-full md:w-64"
+                        value={inputSearch}
+                        onChange={handleInputChange}
+                        placeholder="Recherche..."
+                    />
+                    <div
+                        className={`absolute top-1/2 -translate-y-1/2 right-2 ${inputSearch ? "cursor-pointer" : ""}`}
+                        onClick={handleResetInputSearch}
+                        aria-label={inputSearch ? "Clear search" : "Search"}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => { if(e.key === 'Enter' || e.key === ' ') handleResetInputSearch(); }}
+                    >
                         <FontAwesomeIcon icon={inputSearch ? "fa-solid fa-xmark" : "fa-solid fa-magnifying-glass"} />
                     </div>
                 </div>

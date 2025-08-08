@@ -4,9 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Support = () => {
     const [showPassword, setShowPassword] = React.useState(false);
+    const [openSettings, setOpenSettings] = React.useState(false);
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
+    };
+
+    const toggleSidebar = () => {
+        setOpenSettings(!openSettings);
     };
 
     return (
@@ -18,7 +23,7 @@ const Support = () => {
                 </div>
 
                 <div className="flex flex-col items-center justify-start w-full h-[100dvh] bg-gray-200">
-                    <div className="flex w-full justify-between items-center flex-row px-16 py-4 border-b border-gray-500">
+                    <div className="flex w-full justify-between items-center flex-row px-4 lg:px-16 lg:py-4 border-b border-gray-500">
                         <div className="flex items-center gap-2">
                             <div className="w-[50px] h-[50px] p-4 rounded-full bg-[url('/assets/images/chatbot/chatbot.gif')] bg-no-repeat bg-contain bg-center"></div>
                             <span className="text-lg font-semibold">VP Json</span>
@@ -30,8 +35,25 @@ const Support = () => {
                         </div>
                     </div>
 
-                    <div className="flex flex-row w-full h-full justify-between items-center">
-                        <div className="flex flex-col w-1/4 h-full items-center gap-2 relative px-8 py-4 border-r border-gray-500">
+                    <div className="flex flex-row w-full h-full justify-between items-center relative">
+                        <aside 
+                            className={`
+                                absolute top-0 left-0 h-full bg-gray-100 border-r border-gray-500
+                                w-64 p-8
+                                transform
+                                transition-transform duration-300 ease-in-out
+                                z-20
+                                ${openSettings ? "translate-x-0" : "-translate-x-full"}
+                                lg:translate-x-0 lg:relative lg:w-1/4
+                            `}
+                        >
+                            <button className='lg:hidden absolute top-0 -right-5' onClick={toggleSidebar}>
+                                { openSettings ?
+                                    <FontAwesomeIcon icon={'fa-solid fa-arrow-left'} size="lg" className="text-black cursor-pointer hover:text-orange-400 transition-colors duration-200" />
+                                :
+                                    <FontAwesomeIcon icon={'fa-solid fa-arrow-right'} size="lg" className="text-black cursor-pointer hover:text-orange-400 transition-colors duration-200" />
+                                }
+                            </button>
                             <div className="flex flex-col w-full relative mb-4">
                                 <label htmlFor="api-key" className="mb-2">Clé API :</label>
                                 <input 
@@ -79,8 +101,8 @@ const Support = () => {
                                     <option value="model3">Modèle 3</option>
                                 </select>
                             </div>
-                        </div>
-                        <div className="flex flex-1 flex-col h-full px-50">
+                        </aside>
+                        <div className="flex flex-1 flex-col h-full px-5 lg:px-50">
                             <div className='flex w-full flex-1'></div>
 
                             <div className='flex flex-row items-end w-full h-[15dvh] rounded-md bg-gray-500 p-4 mb-4 gap-4'>

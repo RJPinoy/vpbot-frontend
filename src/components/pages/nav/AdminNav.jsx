@@ -37,19 +37,19 @@ const AdminNav = ({ isAdminPage }) => {
     };
 
     return (
-        <div className="flex justify-between items-center w-full h-[5dvh] bg-[#1E1E1E] text-gray-200 px-30">
+        <div className="flex justify-end lg:justify-between items-center w-full h-[50px] bg-[#1E1E1E] text-gray-200 lg:px-30 p-2">
             { isAdminPage ?
-                <a href="/dashboard" className="text-gray-200 hover:text-white">
+                <a href="/dashboard" className="hidden lg:block text-gray-200 hover:text-white">
                     <FontAwesomeIcon icon="fa-solid fa-house" />
                     <span className="ml-2 text-lg font-semibold">Accueil</span>
                 </a>
             :
-                <a href="/admin/dashboard" className="text-gray-200 hover:text-white">
+                <a href="/admin/dashboard" className="hidden lg:block text-gray-200 hover:text-white">
                     <FontAwesomeIcon icon="fa-solid fa-house" />
                     <span className="ml-2 text-lg font-semibold">Administrateur</span>
                 </a>
             }
-            <div className="flex items-center gap-2 h-full cursor-pointer hover:bg-gray-700 px-4 transition duration-200 ease-in-out relative" onClick={ handleProfileMenu }>
+            <div className="flex items-center gap-2 h-full cursor-pointer hover:bg-gray-700 transition duration-200 ease-in-out relative" onClick={ handleProfileMenu }>
                 <span>Bonjour, {currentUser?.firstName + ' ' + currentUser?.lastName?.toUpperCase()}</span>
                 <div
                     className="w-[30px] h-[30px] rounded-full bg-cover bg-center"
@@ -57,7 +57,7 @@ const AdminNav = ({ isAdminPage }) => {
                 ></div>
                         
                 {showProfileMenu && (
-                    <div className="absolute top-[5dvh] right-0 p-2 w-full bg-[#1E1E1E] shadow-md z-50 flex flex-row justify-evenly overflow-hidden cursor-default" onMouseLeave={ () => setShowProfileMenu(false) }>
+                    <div className="absolute mt-[42px] top-0 right-0 p-2 w-full bg-[#1E1E1E] shadow-md z-50 flex flex-row justify-evenly overflow-hidden cursor-default" onMouseLeave={ () => setShowProfileMenu(false) }>
                         <a
                             href='/admin/dashboard?tab=compte'
                             className="w-[50px] h-[50px] rounded-full bg-cover bg-center"
