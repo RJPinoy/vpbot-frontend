@@ -2,7 +2,7 @@ import { api } from "../../axios";
 
 export const messages = async (action, params) => {
     try {
-        const response = await api.post(`/api/public/messages/${action}`, params);
+        const response = await api.post(`/api/messages/${action}`, params);
         console.log(action, " messages request successful: ", response.data);
         return response.data;
     } catch (error) {
@@ -11,9 +11,9 @@ export const messages = async (action, params) => {
     }
 }
 
-export const pollRun = async (threadId, runId) => {
+export const pollRun = async (threadId, runId, type) => {
     try {
-        const response = await api.post('/api/public/run', { threadId, runId });
+        const response = await api.post('/api/run', { threadId, runId, type });
         console.log("Poll successful:", response.data);
         return response.data;
     } catch (error) {

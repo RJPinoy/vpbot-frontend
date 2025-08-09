@@ -1,4 +1,4 @@
-import { parseMarkdown } from '../../../utils'; // or however it's imported
+import { parseMarkdown } from '../../../utils';
 
 const Messages = ({ chat, fontColor2, secondaryColor }) => {
     return (

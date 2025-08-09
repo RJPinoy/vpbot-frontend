@@ -37,14 +37,14 @@ const AdminNav = ({ isAdminPage }) => {
     };
 
     return (
-        <div className="flex justify-end lg:justify-between items-center w-full h-[50px] bg-[#1E1E1E] text-gray-200 lg:px-30 p-2">
+        <div className="flex justify-end md:justify-between items-center w-full h-[50px] bg-[#1E1E1E] text-gray-200 md:px-30 p-2">
             { isAdminPage ?
-                <a href="/dashboard" className="hidden lg:block text-gray-200 hover:text-white">
+                <a href="/dashboard" className="hidden md:block text-gray-200 hover:text-white">
                     <FontAwesomeIcon icon="fa-solid fa-house" />
                     <span className="ml-2 text-lg font-semibold">Accueil</span>
                 </a>
             :
-                <a href="/admin/dashboard" className="hidden lg:block text-gray-200 hover:text-white">
+                <a href="/admin/dashboard" className="hidden md:block text-gray-200 hover:text-white">
                     <FontAwesomeIcon icon="fa-solid fa-house" />
                     <span className="ml-2 text-lg font-semibold">Administrateur</span>
                 </a>

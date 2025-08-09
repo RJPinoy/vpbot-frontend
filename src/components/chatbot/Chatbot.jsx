@@ -36,7 +36,10 @@ const Chatbot = ({ onClose }) => {
             console.log(threadId);
             try {
                 setIsTyping(true);
-                const data = await messages('list', { threadId });
+                const data = await messages('list', { 
+                    threadId, 
+                    type: 'public' 
+                });
                 const sortedMessages = [...data.data].sort((a, b) => a.created_at - b.created_at);
                 setChat(prev => [...prev, ...sortedMessages]);
             } catch (error) {
@@ -66,7 +69,7 @@ const Chatbot = ({ onClose }) => {
     };
 
     const pollUntilComplete = async (threadId, runId) => {
-        const data = await pollRun(threadId, runId);
+        const data = await pollRun(threadId, runId, 'public');
         
         if (data.status === 'completed') {
             console.log('Run completed:', data.messages);
@@ -110,6 +113,8 @@ const Chatbot = ({ onClose }) => {
             const response = await messages('send', {
                 threadId: threadId,
                 message: message,
+                assistantId: publicChatbot.assistantId,
+                type: 'public'
             });
 
             if (response.success) {

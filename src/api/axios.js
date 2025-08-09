@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getCookie } from "../utils";
 
 const BACKEND_URL = 'localhost'; // Change if localhost
 const BASE_API_URL = `http://${BACKEND_URL}:8000/`;
@@ -10,6 +11,14 @@ export const api = axios.create({
         "Accept": "application/json",
     },
     withCredentials: true, // Include credentials (cookies) in requests
+});
+
+api.interceptors.request.use((config) => {
+    const csrfToken = getCookie('XSRF-TOKEN');
+    if (csrfToken) {
+        config.headers['X-CSRF-TOKEN'] = csrfToken;
+    }
+    return config;
 });
 
 export const checkAuth = async () => {

@@ -38,8 +38,8 @@ const ImageModal = ({ handleCancel, currentImageUrl }) => {
             </button>
 
             <h3 className="text-center text-3xl underline underline-offset-16 decoration-[#37749F] mb-8">Changer d'image de profil</h3>
-            <input type="text" className="w-full border rounded p-2 mb-4" value={ imageUrl } onChange={ handleInputChange }/>
-            <img src={ imageUrl } alt="Image missing." className="mx-auto object-cover border rounded bg-gray-200 aspect-square leading-[40dvh]"/>
+            <input type="text" className="w-full border rounded p-2 mb-4" value={ sanitizeInput(imageUrl) } onChange={ handleInputChange }/>
+            <img src={ sanitizeInput(imageUrl) } alt="Image missing." className="mx-auto object-cover border rounded bg-gray-200 aspect-square leading-[40dvh]"/>
             <button onClick={ handleConfirm } className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded mt-4 hover:bg-blue-600 transition duration-200">Enregistrer</button>
         </div>
     );

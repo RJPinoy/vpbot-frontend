@@ -1,55 +1,34 @@
-import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { parseDate } from '../../../../utils';
 import { useModal } from '../../../modals/ModalProvider';
-import { listUsers } from '../../../../api/users/route';
-import { useSelector } from 'react-redux';
+import { useUsers } from '../../../hooks/useUsers';
 
 const Users = () => {
-    const currentUser = useSelector((state) => state.userSlice.user);
-    const [users, setUsers] = React.useState([]);
-    const [inputSearch, setInputSearch] = React.useState("");
-    const [checkedUsers, setCheckedUsers] = React.useState(new Set());
-    const [filterRole, setFilterRole] = React.useState("Tous");
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [hasMore, setHasMore] = React.useState(false);
-    const [page, setPage] = React.useState(1);
-    const fetchedRef = React.useRef(false);
+    const {
+        filteredUsers,
+        inputSearch,
+        setInputSearch,
+        checkedUsers,
+        setCheckedUsers,
+        allSelected,
+        filterRole,
+        setFilterRole,
+        isLoading,
+        hasMore,
+        setPage,
+        fetchUsers,
+        currentUser,
+    } = useUsers();
+
     const { showModal } = useModal();
-
-    const fetchUsers = async () => {
-        setIsLoading(true);
-        try {
-            const LIMIT = 20;
-            const offset = (page - 1) * LIMIT;
-            const usersList = await listUsers(LIMIT, offset);
-            if (usersList) {
-                console.log(usersList);
-                // console.log(usersList.data);
-                setUsers(prev => [...prev, ...usersList.data]);
-                setHasMore(usersList.hasMore)
-            }
-        } catch (error) {
-            console.error("Error Fetching users: ", error);
-        } finally {
-            setIsLoading(false);
-        }
-    }
-
-    React.useEffect(() => {
-        if (!fetchedRef.current || page > 1) {
-            fetchUsers();
-            fetchedRef.current = true;
-        }
-    }, [page])
 
     const handleResetInputSearch = () => {
         if (inputSearch) setInputSearch("");
-    }
+    };
 
     const handleInputChange = (e) => {
-        setInputSearch(e.target.value)
-    }
+        setInputSearch(e.target.value);
+    };
 
     const handleCheckboxChange = (key) => {
         setCheckedUsers(prev => {
@@ -81,9 +60,7 @@ const Users = () => {
     };
 
     const handleResetPassword = (id) => {
-        const arrayId = Array.isArray(id) ?
-            id : id instanceof Set ?
-                Array.from(id) : [id];
+        const arrayId = Array.isArray(id) ? id : id instanceof Set ? Array.from(id) : [id];
 
         showModal("confirm", {
             userId: arrayId,
@@ -106,9 +83,7 @@ const Users = () => {
     };
 
     const handleChangeRole = (id) => {
-        const arrayId = Array.isArray(id) ?
-            id : id instanceof Set ?
-                Array.from(id) : [id];
+        const arrayId = Array.isArray(id) ? id : id instanceof Set ? Array.from(id) : [id];
 
         showModal("confirm", {
             userId: arrayId,
@@ -127,16 +102,13 @@ const Users = () => {
                 </div>
             ),
             fetchUsers: () => {
-                setUsers([]);
                 fetchUsers();
             },
-        })
-    }
+        });
+    };
 
     const handleDeleteAccount = (id) => {
-        const arrayId = Array.isArray(id) ?
-            id : id instanceof Set ?
-                Array.from(id) : [id];
+        const arrayId = Array.isArray(id) ? id : id instanceof Set ? Array.from(id) : [id];
 
         showModal("confirm", {
             userId: arrayId,
@@ -155,50 +127,15 @@ const Users = () => {
                     <p><strong className="text-xl text-red-500">Cette action est irréversible.</strong></p>
                 </div>
             ),
-        })
-    }
-
-    const isInactive = (dateString) => {
-        // console.log(dateString);
-        const lastDate = parseDate(dateString);
-        const now = new Date();
-        const diffInDays = (now - lastDate) / (1000 * 60 * 60 * 24);
-        return diffInDays > 30;
+        });
     };
 
-    const filteredUsers = users.filter(user => {
-        const search = inputSearch.toLowerCase();
-
-        const matchesSearch =
-            user.firstName?.toLowerCase().includes(search) ||
-            user.lastName?.toLowerCase().includes(search) ||
-            user.username?.toLowerCase().includes(search) ||
-            user.email?.toLowerCase().includes(search) ||
-            user.roles[0]?.toLowerCase().includes(search) ||
-            user.createdAt?.toLowerCase().includes(search) ||
-            user.lastConnected?.toLowerCase().includes(search);
-
-        // If there's a search query, only include users that match
-        if (inputSearch && !matchesSearch) return false;
-
-        // Now apply the tag filter
-        switch (filterRole) {
-            case "Admin":
-                return user.roles?.includes("ROLE_ADMIN") || user.roles?.includes("ROLE_SUPER_ADMIN");
-            case "Utilisateur":
-                return user.roles?.includes("ROLE_USER");
-            case "Inactif":
-                return isInactive(user.lastConnected);
-            case "Tous":
-            default:
-                return true;
-        }
-    });
-
-    // Is "select all" checkbox checked?
-    const allSelected = 
-        filteredUsers.length > 0 && 
-        filteredUsers.every(user => checkedUsers.has(user.id))
+    const isInactive = (dateString) => {
+        const lastDate = parseDate(dateString);
+        const now = new Date();
+        const diffInDays = (now.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24);
+        return diffInDays > 30;
+    };
 
     return (
         <>
@@ -207,7 +144,7 @@ const Users = () => {
             <div className="flex flex-col md:flex-row justify-between items-center w-full my-4 gap-4 md:gap-0">
                 <div className="flex flex-wrap md:flex-nowrap gap-2 md:gap-0">
                     {["Tous", "Admin", "Utilisateur", "Inactif"].map(role => {
-                        const count = [...users].filter(u => {
+                        const count = [...filteredUsers].filter(u => {
                             if (role === "Tous") return true;
                             if (role === "Admin") return u.roles?.includes("ROLE_ADMIN") || u.roles?.includes("ROLE_SUPER_ADMIN");
                             if (role === "Utilisateur") return u.roles?.includes("ROLE_USER");
@@ -220,7 +157,7 @@ const Users = () => {
                                 key={role}
                                 onClick={() => setFilterRole(role)}
                                 className={`flex items-center px-2 border-r cursor-pointer hover:underline ${
-                                    filterRole === role ? "font-bold text-black" : "text-blue-600 "
+                                    filterRole === role ? "font-bold text-black" : "text-blue-600"
                                 }`}
                             >
                                 {role} ({count})
@@ -252,11 +189,12 @@ const Users = () => {
                     </div>
                 </div>
             </div>
+
             { isLoading ? (
                 <div className="text-center mt-4">Chargement des utilisateurs...</div>
             ) : (
                 filteredUsers.length === 0 ?
-                    <div className='w-full text-center mt-8'>Aucun utilisateurs trouvé.</div>
+                    <div className='w-full text-center mt-8'>Aucun utilisateur trouvé.</div>
                 :
                     <>
                         <div id='table_users' className='w-full border border-gray-700 rounded-md max-h-[70dvh] overflow-y-auto mb-2 relative'>
@@ -281,49 +219,47 @@ const Users = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    { filteredUsers.map((user) => {
-                                        return (
-                                            <tr key={user.id} className='group odd:bg-gray-200 even:bg-white'>
-                                                <td className='p-2 text-center'>
-                                                    <input type="checkbox"
-                                                        name='checkbox-select'
-                                                        checked={checkedUsers.has(user.id)}
-                                                        onChange={() => handleCheckboxChange(user.id)}
-                                                    />
-                                                </td>
-                                                <td className='max-w-[250px] align-top'>
-                                                    <div className='p-2 my-2'>
-                                                        <div className='flex flex-row justify-start gap-2 mb-2'>
-                                                            {user.img && (
-                                                                <img
-                                                                    className="rounded border-2 border-gray-700 aspect-square w-[50px] h-[50px] object-cover"
-                                                                    src={user.img}
-                                                                    alt="Photo de profil"
-                                                                />
-                                                            )}
-                                                            <span className='w-full'>{user.lastName.toUpperCase()} {user.firstName}</span>
-                                                        </div>
-                                                        <div className='flex flex-col justify-center gap-x-2 opacity-0 transition duration-200 ease-in-out group-hover:opacity-100'>
-                                                            { currentUser.id === user.id ?
-                                                                <a href='/admin/dashboard?tab=compte' className="italic text-center text-sm text-blue-600 cursor-pointer hover:underline">Modifier le profil</a>
-                                                            :
-                                                                <>
-                                                                    <button onClick={ () => handleResetPassword(user.id) } className="italic text-sm text-blue-600 cursor-pointer hover:underline">Réinitialiser mot de passe</button>
-                                                                    <button onClick={ () => handleChangeRole(user.id) } className="italic text-sm text-blue-600 cursor-pointer hover:underline">Modifier le rôle</button>
-                                                                    <button onClick={ () => handleDeleteAccount(user.id) } className="italic text-sm text-red-600 cursor-pointer hover:underline">Supprimer le compte</button>
-                                                                </>
-                                                            }
-                                                        </div>
+                                    { filteredUsers.map((user) => (
+                                        <tr key={user.id} className='group odd:bg-gray-200 even:bg-white'>
+                                            <td className='p-2 text-center'>
+                                                <input type="checkbox"
+                                                    name='checkbox-select'
+                                                    checked={checkedUsers.has(user.id)}
+                                                    onChange={() => handleCheckboxChange(user.id)}
+                                                />
+                                            </td>
+                                            <td className='max-w-[250px] align-top'>
+                                                <div className='p-2 my-2'>
+                                                    <div className='flex flex-row justify-start gap-2 mb-2'>
+                                                        {user.img && (
+                                                            <img
+                                                                className="rounded border-2 border-gray-700 aspect-square w-[50px] h-[50px] object-cover"
+                                                                src={user.img}
+                                                                alt="Photo de profil"
+                                                            />
+                                                        )}
+                                                        <span className='w-full'>{user.lastName.toUpperCase()} {user.firstName}</span>
                                                     </div>
-                                                </td>
-                                                <td>{user.username}</td>
-                                                <td>{user.email}</td>
-                                                <td>{user.roles[0]}</td>
-                                                <td>{user.createdAt}</td>
-                                                <td>{user.lastConnected}</td>
-                                            </tr>
-                                        );
-                                    })}
+                                                    <div className='flex flex-col justify-center gap-x-2 opacity-0 transition duration-200 ease-in-out group-hover:opacity-100'>
+                                                        {currentUser?.id === user.id ?
+                                                            <a href='/admin/dashboard?tab=compte' className="italic text-center text-sm text-blue-600 cursor-pointer hover:underline">Modifier le profil</a>
+                                                        :
+                                                            <>
+                                                                <button onClick={() => handleResetPassword(user.id)} className="italic text-sm text-blue-600 cursor-pointer hover:underline">Réinitialiser mot de passe</button>
+                                                                <button onClick={() => handleChangeRole(user.id)} className="italic text-sm text-blue-600 cursor-pointer hover:underline">Modifier le rôle</button>
+                                                                <button onClick={() => handleDeleteAccount(user.id)} className="italic text-sm text-red-600 cursor-pointer hover:underline">Supprimer le compte</button>
+                                                            </>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>{user.username}</td>
+                                            <td>{user.email}</td>
+                                            <td>{user.roles[0]}</td>
+                                            <td>{user.createdAt}</td>
+                                            <td>{user.lastConnected}</td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                             {hasMore && (
@@ -341,9 +277,9 @@ const Users = () => {
                             <span className='text-sm font-thin italic'>{checkedUsers.size} sélectionné{checkedUsers.size > 1 ? 's' : ''}</span>
                             { checkedUsers.size > 0 && (
                                 <>
-                                    <button onClick={ () => handleResetPassword(checkedUsers) } className="cursor-pointer bg-blue-500 text-white px-4 py-1 text-sm rounded hover:bg-blue-600 transition duration-200">Réinitialiser le mot de passe</button>
-                                    <button onClick={ () => handleChangeRole(checkedUsers) } className="cursor-pointer bg-blue-500 text-white px-4 py-1 text-sm rounded hover:bg-blue-600 transition duration-200">Modifier le rôle</button>
-                                    <button onClick={ () => handleDeleteAccount(checkedUsers) } className="cursor-pointer bg-red-500 text-white px-4 py-1 text-sm rounded hover:bg-red-600 transition duration-200">Supprimer {checkedUsers.size > 1 ? 'les comptes' : 'le compte'}</button>
+                                    <button onClick={() => handleResetPassword(checkedUsers)} className="cursor-pointer bg-blue-500 text-white px-4 py-1 text-sm rounded hover:bg-blue-600 transition duration-200">Réinitialiser le mot de passe</button>
+                                    <button onClick={() => handleChangeRole(checkedUsers)} className="cursor-pointer bg-blue-500 text-white px-4 py-1 text-sm rounded hover:bg-blue-600 transition duration-200">Modifier le rôle</button>
+                                    <button onClick={() => handleDeleteAccount(checkedUsers)} className="cursor-pointer bg-red-500 text-white px-4 py-1 text-sm rounded hover:bg-red-600 transition duration-200">Supprimer {checkedUsers.size > 1 ? 'les comptes' : 'le compte'}</button>
                                 </>
                             )}
                         </div>
@@ -351,6 +287,6 @@ const Users = () => {
             )}
         </>
     );
-}
+};
 
 export default Users;

@@ -1,10 +1,17 @@
 function sanitizeInput(input) {
-    return input.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return input.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+  return null;
 }
 
 function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
 }
 
 function parseDate(dateString) {
@@ -65,33 +72,33 @@ function parseMarkdown(text) {
   text = text.replace(/^### (.*$)/gim, '<h3>$1</h3>');
   text = text.replace(/^## (.*$)/gim, '<h2>$1</h2>');
   text = text.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-
+  
   // Replace bold and italic
   text = text.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
   text = text.replace(/\*(.*?)\*/gim, '<em>$1</em>');
-
+  
   // Replace links
   text = text.replace(/\[(.*?)\]\((.*?)\)/gim, '<a class="extranet-bot-messages-link" href="$2" target="_blank">$1</a>');
-
+  
   // Replace unordered lists
   text = text.replace(/^\* (.*$)/gim, '<li>$1</li>');
   text = text.replace(/(<li>.*<\/li>)/gim, '<ul>$1</ul>');
-
+  
   // Replace line breaks
   text = text.replace(/\n/gim, '<br>');
-
+  
   // Replace annotations【10†source】from prompt response
   let pattern = /【.*?】/g;
   text = text.replace(pattern, '');
-
+  
   // Remove backslashes before special characters
   text = text.replace(/\\(.)/g, '$1');
-
+  
   // Replace code blocks (```language ... ```)
   text = text.replace(/```(\w+)?\s*([\s\S]*?)```/g, (match, lang, code) => {
-      return `<pre><code class="${lang ? `language-${lang}` : ''}">${code}</code></pre>`;
+    return `<pre><code class="${lang ? `language-${lang}` : ''}">${code}</code></pre>`;
   });    
-
+  
   return text.trim();
 }
 
@@ -106,4 +113,4 @@ function setDefaultLocalStorage() {
   }
 }
 
-export { sanitizeInput, isValidEmail, parseDate, AiModelAvailable, initialMessage, fetchFailed, parseMarkdown, setDefaultLocalStorage };
+export { sanitizeInput, getCookie, isValidEmail, parseDate, AiModelAvailable, initialMessage, fetchFailed, parseMarkdown, setDefaultLocalStorage };

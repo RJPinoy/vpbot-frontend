@@ -26,6 +26,7 @@ const ConfirmModal = ({ handleCancel, userId, message, action, fetchUsers }) => 
                     console.error("Modify user failed:", error);
                 } finally {
                     hideModal();
+                    window.location.reload();
                 }
                 return
             case "deleteAccount":
@@ -39,6 +40,7 @@ const ConfirmModal = ({ handleCancel, userId, message, action, fetchUsers }) => 
                     console.error("Error while deleting user: ", error);
                 } finally {
                     hideModal();
+                    window.location.reload();
                 }
                 return
             default:
