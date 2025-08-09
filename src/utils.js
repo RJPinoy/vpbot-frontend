@@ -46,18 +46,16 @@ function initialMessage(message) {
   }
 }
 
-const fetchFailed = [
-  {
-    role: 'assistant',
-    content: [
-      {
-        text: {
-          value: "Oops.. We're sorry.. Something went wrong. Please reload or try again. If the problem persists, please contact our support."
-        }
+const fetchFailed = {
+  role: 'assistant',
+  content: [
+    {
+      text: {
+        value: "Oops.. We're sorry.. Something went wrong. Please reload or try again. If the problem persists, please contact our support."
       }
-    ]
-  }
-]
+    }
+  ]
+}
 
 function parseMarkdown(text) {
   // Replace headers

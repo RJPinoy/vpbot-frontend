@@ -5,7 +5,7 @@ const Messages = ({ chat, fontColor2, secondaryColor }) => {
         <>
             {chat.map((msg, idx) => {
                 const { role, content } = msg;
-                const text = content[0]?.text.value;
+                const text = content?.[0]?.text.value || '';
 
                 return (
                     <div

@@ -11,7 +11,7 @@ export const publicChatbotSlice = createSlice({
             fontColor1: '#ffffff',
             fontColor2: '#ffffff',
             mainColor: '#306285',
-            secondaryColor: '#ffffff',
+            secondaryColor: '#616161',
             renderEveryPages: true,
             position: 'right',
             welcomeMessage: 'Bonjour ! Comment puis-je vous aider sur la documentation de Visual Planning ?',
